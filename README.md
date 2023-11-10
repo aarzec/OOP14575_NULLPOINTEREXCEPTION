@@ -1,2 +1,3 @@
 # OOP14575_NULLPOINTEREXCEPTION
-Repository of our OOP team
+Object Oriented Class from DCCO - ESPE NRC 14575 year 2023, month november
+Instructor: Edison Lascano
