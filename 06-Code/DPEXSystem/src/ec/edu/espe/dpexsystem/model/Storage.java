@@ -17,5 +17,7 @@ public class Storage {
     
     public Package[] getPackage(){
         
+        return null;
+        
     }
 }

@@ -14,6 +14,8 @@ public class Shipping {
     
     public String getCurrentLocation(){
         
+        return null;
+        
     }
     
     public void uplateLocation(String location){
