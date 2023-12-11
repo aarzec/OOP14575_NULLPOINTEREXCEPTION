@@ -13,14 +13,7 @@ public class Storage {
     
     
     public void addPackage(Package packages){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the package ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter the package status: ");
-        String status = scanner.nextLine();
-        System.out.print("Enter the weight of the package: ");
-        float weight = scanner.nextFloat();
+        
     }
     
     public void removePackage(Package packages){
