@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import java.lang.reflect.Type;
 
 import ec.edu.espe.dpexsystem.model.Country;
@@ -63,4 +64,7 @@ public class DPEXSystem {
         } catch (IOException e) {}
         allCountries = data;
     }
+    
+    
+
 }

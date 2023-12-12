@@ -13,11 +13,11 @@ public class Storage {
     
     
     public void addPackage(ElectoralPackage packages){
-        
+        this.packages.add(packages);
     }
     
     public void removePackage(ElectoralPackage packages){
-        
+        this.packages.remove(packages);
     }
     
     public ElectoralPackage[] getPackage(){

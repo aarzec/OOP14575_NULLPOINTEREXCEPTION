@@ -22,14 +22,7 @@ public class Constituency {
         this.countries.add(country);
     }
     
-    public ConsularOffice addConsularOffice() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the name of the consular office: ");
-        String officeName = scanner.nextLine();
-        System.out.print("Enter the address of the consular office: ");
-        String address = scanner.nextLine();
-
-        return new ConsularOffice(officeName, address);
+    public void addConsularOffice(ConsularOffice consularOffice) {
+        this.consularOffices.add(consularOffice);
     }
 }

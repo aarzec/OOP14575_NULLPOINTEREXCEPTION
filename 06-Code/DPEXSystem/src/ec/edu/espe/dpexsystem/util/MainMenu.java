@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import ec.edu.espe.dpexsystem.model.ConsularOffice;
 
 import ec.edu.espe.dpexsystem.model.Country;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage.PackageType;
@@ -113,7 +114,21 @@ public class MainMenu {
         int ecuadorianPopulation = UserInput.getInt("Enter the Ecuadorian population of the country: ", 0);
         DPEXSystem.addCountry(new Country(countryName, ecuadorianPopulation));
     }
-
+    
+    private static void registerConsularOffice() {
+        String consularOfficeName = UserInput.getString("Enter the name of the consular office: ");
+        String consularOfficeAddress = UserInput.getString("Enter the addres of the consular office: ");
+        DPEXSystem.addConsularOffice(new ConsularOffice(consularOfficeName, consularOfficeAddress));
+    }
+    
+    private static void registerConstituency() {
+        String ConstituencyName = UserInput.getString("Enter the name of the constituency: ");
+        
+        //el country se pide o se escoje de los agregados?
+        
+        DPEXSystem.addConstituency(new Constituency(constituencyName, country));
+    }
+    
     private static void printAllCountries() {
         for (Country country : DPEXSystem.getAllCountries()) {
             System.out.println(country);
