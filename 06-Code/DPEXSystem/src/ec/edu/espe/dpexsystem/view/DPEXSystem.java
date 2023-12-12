@@ -48,17 +48,11 @@ public class DPEXSystem {
     }
 
     public static void saveCountries() {
-        Gson gson = new Gson();
-        try (FileWriter writer = new FileWriter(COUNTRIES_FILE)) {
-            gson.toJson(allCountries, writer);
-        } catch (IOException e) {
+        try {
+            JsonHandler.writeToJson(COUNTRIES_FILE, allCountries);
+        }catch (IOException e){
             MessageBox.printMessage("An error occured while persisting countries data");
         }
-        // try {
-        //     JsonHandler.writeToJson(COUNTRIES_FILE, allCountries);
-        // } catch (IOException e){
-        //     MessageBox.printMessage("An error occured while persisting countries data");
-        // }
     }
 
     private static void loadCountries() {
