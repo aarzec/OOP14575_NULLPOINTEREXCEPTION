@@ -7,7 +7,7 @@ import java.util.Date;
  * @author NullPointerException
  */
 public class Shipping {
-    private Package[] packages;
+    private ElectoralPackage[] packages;
     private Date dispatchDate;
     private Date arrivalDate;
     private String currentLocation;

@@ -9,18 +9,18 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private ArrayList<Package> packages = new ArrayList<>();
+    private ArrayList<ElectoralPackage> packages = new ArrayList<>();
     
     
-    public void addPackage(Package packages){
+    public void addPackage(ElectoralPackage packages){
         
     }
     
-    public void removePackage(Package packages){
+    public void removePackage(ElectoralPackage packages){
         
     }
     
-    public Package[] getPackage(){
+    public ElectoralPackage[] getPackage(){
         
         return null;
         

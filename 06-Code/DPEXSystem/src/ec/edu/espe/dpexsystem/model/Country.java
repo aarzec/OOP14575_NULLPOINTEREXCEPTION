@@ -9,23 +9,14 @@ import java.util.Scanner;
 public class Country {
     private String name;
     private int ecuadorianPopulation;
-    
-    private Scanner scanner = new Scanner(System.in);
+
+    public int getEcuadorianPopulation() {
+        return ecuadorianPopulation;
+    }
 
     public Country(String name, int ecuadorianPopulation) {
         this.name = name;
         this.ecuadorianPopulation = ecuadorianPopulation;
-    }
-    
-    public int getEcuadorianPopulation(){
-        System.out.print("Enter the Ecuadorian population of the country: ");
-        int ecuadorianPopulation = getScanner().nextInt();
-        return ecuadorianPopulation;
-    }
-
-    @Override
-    public String toString() {
-        return "Country{" + "name=" + getName() + ", ecuadorianPopulation=" + getEcuadorianPopulation() + ", scanner=" + getScanner() + '}';
     }
 
     /**
@@ -49,19 +40,8 @@ public class Country {
         this.ecuadorianPopulation = ecuadorianPopulation;
     }
 
-    /**
-     * @return the scanner
-     */
-    public Scanner getScanner() {
-        return scanner;
+    @Override
+    public String toString() {
+        return "-> " + name + ": Ecuadorian population: " + ecuadorianPopulation;
     }
-
-    /**
-     * @param scanner the scanner to set
-     */
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
-    
-    
 }

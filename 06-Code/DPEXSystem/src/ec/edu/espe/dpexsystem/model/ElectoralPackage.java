@@ -5,17 +5,34 @@ package ec.edu.espe.dpexsystem.model;
  * @author NullPointerException
  */
 
-public class Package {
+public class ElectoralPackage {
+    public static int totalRegisteredPackages = 0;
+
+    public static enum PackageStatus {
+        PENDING,
+        SENT,
+        ARRIVED
+    }
+
+    public static enum PackageType {
+        CNE,
+        MIXTO,
+        GENERO
+    }
+
     private int packageId;
     private Country country;
     private ConsularOffice consularOffice;
     private Constituency constituency;
-    private String status;
     private PackageType packageType;
     private float weigth;
+    private PackageStatus status;
 
-    public Package(int packageId, Country country, ConsularOffice consularOffice, Constituency constituency, String status, PackageType packageType, float weigth) {
-        this.packageId = packageId;
+    public ElectoralPackage(Country country, ConsularOffice consularOffice, Constituency constituency,
+            PackageStatus status, PackageType packageType, float weigth) {
+        totalRegisteredPackages++;
+
+        this.packageId = totalRegisteredPackages;
         this.country = country;
         this.consularOffice = consularOffice;
         this.constituency = constituency;
@@ -23,14 +40,13 @@ public class Package {
         this.packageType = packageType;
         this.weigth = weigth;
     }
-    
-    
-    public void updateStatus(String status){
-        
+
+    public void updateStatus(String status) {
+
     }
-    
-    public void updateShippingStatus(String shippingStatus){
-        
+
+    public void updateShippingStatus(String shippingStatus) {
+
     }
 
     /**
@@ -90,20 +106,6 @@ public class Package {
     }
 
     /**
-     * @return the status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    /**
      * @return the packageType
      */
     public PackageType getPackageType() {
@@ -129,6 +131,14 @@ public class Package {
      */
     public void setWeigth(float weigth) {
         this.weigth = weigth;
+    }
+
+    public PackageStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PackageStatus status) {
+        this.status = status;
     }
 
 }

@@ -18,21 +18,11 @@ public class Constituency {
         this.consularOffices = consularOffices;
     }
 
-    public static Country addCountry() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the name of the country: ");
-        String countryName = scanner.nextLine();
-        
-        //int ecuadorianPopulation = Country.getEcuadorianPopulation(); comentado pq no se como implementarle
-        
-        System.out.print("Enter the Ecuadorian population of the country: ");
-        int ecuadorianPopulation = scanner.nextInt();
-
-        return new Country(countryName, ecuadorianPopulation);
+    public void addCountry(Country country) {
+        this.countries.add(country);
     }
     
-    public static ConsularOffice addConsularOffice() {
+    public ConsularOffice addConsularOffice() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter the name of the consular office: ");
