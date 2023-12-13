@@ -7,6 +7,7 @@ import java.util.Scanner;
  *
  * @author NullPointerException
  */
+
 public class Constituency {
     private String name;
     private ArrayList<Country> countries;

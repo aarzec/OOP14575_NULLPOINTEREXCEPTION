@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import ec.edu.espe.dpexsystem.model.Constituency;
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 
 import ec.edu.espe.dpexsystem.model.Country;
@@ -79,6 +80,10 @@ public class MainMenu {
 
     private static void registerElectoralPackage() {
         Country country;
+        Constituency constituency;
+        float weight;
+
+        
         while (true) {
             final String countryName = UserInput.getString("Enter the country name: ");
             country = DPEXSystem.getCountry(countryName);
@@ -87,6 +92,17 @@ public class MainMenu {
             }
             break;
         }
+        
+        while (true) {
+            registerConsularOffice();
+            break; 
+        }
+        
+        while (true) {
+            //registerConstituency();
+            break; 
+        }
+            
 
         final int ecuadorianPopulation = country.getEcuadorianPopulation();
         PackageType packageType;
@@ -121,13 +137,20 @@ public class MainMenu {
         DPEXSystem.addConsularOffice(new ConsularOffice(consularOfficeName, consularOfficeAddress));
     }
     
+    /*
     private static void registerConstituency() {
-        String ConstituencyName = UserInput.getString("Enter the name of the constituency: ");
+        String ConstutencyName = UserInput.getString("Enter the name of the Constituency: ");
+        String ConstituencyCountry = DPEXSystem
+        DPEXSystem.addConsularOffice(new ConsularOffice(consularOfficeName, consularOfficeAddress));
+    }
+    */
+        
+      //  String 
         
         //el country se pide o se escoje de los agregados?
         
-        DPEXSystem.addConstituency(new Constituency(constituencyName, country));
-    }
+      //  DPEXSystem.addConstituency(new Constituency(constituencyName, country));
+    
     
     private static void printAllCountries() {
         for (Country country : DPEXSystem.getAllCountries()) {
@@ -136,7 +159,7 @@ public class MainMenu {
     }
 
     private static void createNewRole() {
-
+        //
     }
 
     public static void saveToJson(Package[] packages) {

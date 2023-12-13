@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.dpexsystem.model.Constituency;
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import java.lang.reflect.Type;
 
@@ -20,7 +21,10 @@ import ec.edu.espe.dpexsystem.util.MessageBox;
  */
 public class DPEXSystem {
     private static ArrayList<Country> allCountries = new ArrayList<>();
+    private static ArrayList<ConsularOffice> consularOffices = new ArrayList<>();
     private static final String COUNTRIES_FILE = "countries.json";
+    
+
 
     public static void main(String[] args) {
         // Load saved data
@@ -63,8 +67,28 @@ public class DPEXSystem {
             data = JsonHandler.readFromJson(COUNTRIES_FILE, listType);
         } catch (IOException e) {}
         allCountries = data;
+        
+    }
+        // TODO inicializar un archivo con las consularoffices registradas
+    public static void addConsularOffice (ConsularOffice consularOffice){
+        consularOffices.add(consularOffice);
     }
     
+    public static ConsularOffice getConsularOffice (String consularOfficeName) {
+        for (ConsularOffice consularOffice : consularOffices) {
+            if (consularOffice.getOfficeName().equals(consularOfficeName)) {
+                return consularOffice;
+            }
+        }
+        return null;
+    }
     
-
+    /* WIP
+    public static Constituency addConstituency (Constituency constituency) {
+        
+        Constituency newConstituency;
+        newConstituency = new Constituency("name", allCountries, consularOffices);
+        return newConstituency;       
+    }
+    */
 }
