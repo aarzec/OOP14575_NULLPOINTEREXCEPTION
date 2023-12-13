@@ -7,12 +7,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import ec.edu.espe.dpexsystem.model.Constituency;
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 
 import ec.edu.espe.dpexsystem.model.Country;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage.PackageType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
+import java.io.FileReader;
+import java.io.Reader;
 
 public class MainMenu {
     public static void showAdminMenu() {
@@ -79,47 +84,66 @@ public class MainMenu {
     // }
 
     private static void registerElectoralPackage() {
-        Country country;
-        Constituency constituency;
-        float weight;
+        Country country = null;
+        String jsonFilePath = "countries.json";
+        Gson gson = new Gson();
 
-        
         while (true) {
             final String countryName = UserInput.getString("Enter the country name: ");
             country = DPEXSystem.getCountry(countryName);
-            if (country == null) {
+
+            if (country != null) { 
+                PackageType packageType = null;
+                boolean countryExists = false;
+
+                try (Reader reader = new FileReader(jsonFilePath)) {
+                    JsonArray jsonArray = gson.fromJson(reader, JsonArray.class);
+
+                    for (JsonElement countryElement : jsonArray) {
+                        JsonObject countryObject = countryElement.getAsJsonObject();
+                        String name = countryObject.get("name").getAsString();
+
+                        if (countryName.equalsIgnoreCase(name)) {
+                            countryExists = true;
+                            final int ecuadorianPopulation = country.getEcuadorianPopulation();
+
+                            if (ecuadorianPopulation < 100) {
+                                packageType = PackageType.CNE;
+                            } else if (ecuadorianPopulation >= 100 && ecuadorianPopulation < 900) {
+                                packageType = PackageType.MIXTO;
+                            } else {
+                                packageType = PackageType.GENERO;
+                            }
+                            break;
+                        }
+                    }
+
+                    if (countryExists) {
+                        System.out.println("Country ---> " + countryName + ": " + packageType);
+                        // Aquí puedes realizar la lógica para registrar el paquete electoral
+                        // DPEXSystem.registerPackage(new ElectoralPackage(country, packageType));
+                        break;  
+                    } else {
+                        System.out.println("The country you entered doesn't exist");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
                 System.out.println("The country you entered doesn't exist");
+                break;  
+                
+                // System.out.print("Enter the type of the package: "); // le pido ingreso solo para que el porgrama corra
+                // String type = scanner.nextLine();
+
+                // return new PackageType(id, type);
+                // TODO: TERMINAR INGRESO PAQUETES
+ 
             }
-            break;
         }
-        
-        while (true) {
-            registerConsularOffice();
-            break; 
-        }
-        
-        while (true) {
-            //registerConstituency();
-            break; 
-        }
-            
-
-        final int ecuadorianPopulation = country.getEcuadorianPopulation();
-        PackageType packageType;
-        if (ecuadorianPopulation < 100) {
-            packageType = PackageType.CNE;
-        } else if (ecuadorianPopulation >= 100 && ecuadorianPopulation < 900) {
-            packageType = PackageType.MIXTO;
-        } else {
-            packageType = PackageType.GENERO;
-        }
-
-        // System.out.print("Enter the type of the package: "); // le pido ingreso solo para que el porgrama corra
-        // String type = scanner.nextLine();
-
-        // return new PackageType(id, type);
-        // TODO: TERMINAR INGRESO PAQUETES
     }
+        
 
     private static void modifyPackages() {
 
@@ -129,6 +153,7 @@ public class MainMenu {
         String countryName = UserInput.getString("Enter the name of the country: ");
         int ecuadorianPopulation = UserInput.getInt("Enter the Ecuadorian population of the country: ", 0);
         DPEXSystem.addCountry(new Country(countryName, ecuadorianPopulation));
+        System.out.println("Country registered successfully!");
     }
     
     private static void registerConsularOffice() {
