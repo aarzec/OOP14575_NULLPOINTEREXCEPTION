@@ -11,12 +11,18 @@ import com.google.gson.Gson;
 import ec.edu.espe.dpexsystem.model.Constituency;
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
+import ec.edu.espe.dpexsystem.model.User;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage.PackageType;
+import ec.edu.espe.dpexsystem.model.User.UserType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
 
 public class MainMenu {
-
-    public static void showAdminMenu() {
+    public static void showMainMenu(User loggedUser) {
+        if (loggedUser.getType() == UserType.ADMINISTRATOR) {
+            showAdminMenu();
+        }
+    }
+    private static void showAdminMenu(){
         final List<String> menuOptions = Arrays.asList("Register a new electoral package",
                 "Modify a registered package", "List all countries", "Register a new country", "Assign new roles",
                 "Export electoral packages data", "Logout", "Quit");
@@ -47,6 +53,7 @@ public class MainMenu {
                     logInNewUser();
                     break;
                 case 7:
+                case 8:
                     System.out.println("Thanks for using the DPEX System");
                     System.exit(0);
                     break;

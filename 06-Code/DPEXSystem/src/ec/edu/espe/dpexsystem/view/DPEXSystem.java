@@ -2,13 +2,18 @@ package ec.edu.espe.dpexsystem.view;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import com.google.gson.reflect.TypeToken;
 
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
+import ec.edu.espe.dpexsystem.model.User;
 import ec.edu.espe.dpexsystem.util.JsonHandler;
+import ec.edu.espe.dpexsystem.util.LoginMenu;
 import ec.edu.espe.dpexsystem.util.MainMenu;
 import ec.edu.espe.dpexsystem.util.MessageBox;
 
@@ -17,17 +22,20 @@ import ec.edu.espe.dpexsystem.util.MessageBox;
  * @author NullPointerException
  */
 public class DPEXSystem {
-
     private static ArrayList<Country> allCountries = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
     private static ArrayList<ConsularOffice> consularOffices = new ArrayList<>();
     private static final String COUNTRIES_FILE = "./countries.json";
 
-    public static void main(String[] args) {
-        // Load saved data
-        loadCountries();
+    private static User currentUser;
 
-        // Show Main Menu
-        MainMenu.showAdminMenu();
+    public static void main(String[] args) {
+        initFolderStructure();
+        loadCountries();
+        users = User.loadFromFile();
+
+        currentUser = LoginMenu.showLoginPrompt();
+        MainMenu.showMainMenu(currentUser);
     }
 
     public static void addCountry(Country country) {
@@ -43,6 +51,17 @@ public class DPEXSystem {
         }
         return null;
     }
+
+    private static void initFolderStructure() {
+        Path dataDirPath = Paths.get("./data");
+        if (!Files.exists(dataDirPath)) {
+            try {
+                Files.createDirectories(dataDirPath);
+            } catch (IOException e) {
+                MessageBox.error("There was a problem while initializing the folders structure.");
+            }
+        }
+    };
 
     public static ArrayList<Country> getAllCountries() {
         return allCountries;
@@ -62,7 +81,8 @@ public class DPEXSystem {
         ArrayList<Country> data = new ArrayList<>();
         try {
             data = JsonHandler.readFromJson(COUNTRIES_FILE, listType);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         allCountries = data;
 
     }
@@ -81,12 +101,7 @@ public class DPEXSystem {
         return null;
     }
 
-    /* WIP
-    public static Constituency addConstituency (Constituency constituency) {
-        
-        Constituency newConstituency;
-        newConstituency = new Constituency("name", allCountries, consularOffices);
-        return newConstituency;       
+    public static User getCurrentUser() {
+        return currentUser;
     }
-     */
 }
