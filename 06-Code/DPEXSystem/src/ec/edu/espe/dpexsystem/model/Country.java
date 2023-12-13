@@ -9,14 +9,16 @@ import java.util.Scanner;
 public class Country {
     private String name;
     private int ecuadorianPopulation;
+    private ConsularOffice consularOffice;
+
+    public Country(String name, int ecuadorianPopulation, ConsularOffice consularOffice) {
+        this.name = name;
+        this.ecuadorianPopulation = ecuadorianPopulation;
+        this.consularOffice = consularOffice;
+    }
 
     public int getEcuadorianPopulation() {
         return ecuadorianPopulation;
-    }
-
-    public Country(String name, int ecuadorianPopulation) {
-        this.name = name;
-        this.ecuadorianPopulation = ecuadorianPopulation;
     }
 
     /**
@@ -43,5 +45,13 @@ public class Country {
     @Override
     public String toString() {
         return "-> " + name + ": Ecuadorian population: " + ecuadorianPopulation;
+    }
+
+    public ConsularOffice getConsularOffice() {
+        return consularOffice;
+    }
+
+    public void setConsularOffice(ConsularOffice consularOffice) {
+        this.consularOffice = consularOffice;
     }
 }

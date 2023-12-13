@@ -1,29 +1,45 @@
 package ec.edu.espe.dpexsystem.util;
 
-import java.util.Scanner;
-
 public class MessageBox {
-    public static void printMessage(String message) {
-        int messageLength = message.length();
-        String border = "";
-        for(int i=0; i<messageLength+4; i++) {
-            border += "*";
-        }
-        String emptyLine = "*";
-        for(int i=0; i<messageLength+2; i++) {
-            emptyLine += " ";
-        }
-        emptyLine += "*";
+    private static void printMessage(String message, String prefix, String color, boolean pause, boolean clear) {
+        String border = color + "\n╔" + "═".repeat(prefix.length() + message.length() + 2) + "╗";
+        String coloredMessage = color + "║ " + prefix + Color.RESET + message + color + " ║" + Color.RESET;
+        String bottomBorder = color + "╚" + "═".repeat(prefix.length() + message.length() + 2) + "╝\n" + Color.RESET;
 
         System.out.println(border);
-        System.out.println(emptyLine);
-        
-        System.out.println("* " + message + " *");
-        System.out.println(emptyLine);
-        System.out.println(border);
+        System.out.println(coloredMessage);
+        System.out.println(bottomBorder);
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Press enter to continue...");
-        scanner.nextLine();
+        if (pause) {
+            ConsoleUtil.consolePause();
+        }
+        if (clear) {
+            ConsoleUtil.clearConsole();
+        }
     }
+
+    public static void info(String message, boolean pause, boolean clear) {
+        printMessage(message, "Info: ", Color.BLUE, pause, clear);
+    }
+
+    public static void warn(String message, boolean pause, boolean clear) {
+        printMessage(message, "Warning: ", Color.YELLOW, pause, clear);
+    }
+
+    public static void error(String message, boolean pause, boolean clear) {
+        printMessage(message, "Error: ", Color.RED, pause, clear);
+    }
+
+    public static void info(String message) {
+        info(message, true, true);
+    }
+
+    public static void warn(String message) {
+        warn(message, true, true);
+    }
+
+    public static void error(String message) {
+        error(message, true, true);
+    }
+
 }

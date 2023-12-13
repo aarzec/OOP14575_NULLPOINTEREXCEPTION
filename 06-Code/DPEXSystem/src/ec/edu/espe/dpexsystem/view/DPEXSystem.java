@@ -1,15 +1,12 @@
 package ec.edu.espe.dpexsystem.view;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import ec.edu.espe.dpexsystem.model.Constituency;
-import ec.edu.espe.dpexsystem.model.ConsularOffice;
-import java.lang.reflect.Type;
 
+import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
 import ec.edu.espe.dpexsystem.util.JsonHandler;
 import ec.edu.espe.dpexsystem.util.MainMenu;
@@ -23,18 +20,7 @@ public class DPEXSystem {
 
     private static ArrayList<Country> allCountries = new ArrayList<>();
     private static ArrayList<ConsularOffice> consularOffices = new ArrayList<>();
-    private static final String COUNTRIES_FILE = "countries.json";
-
-    //Function that allows you to read the name of the country regardless of whether it is uppercase or lowercase
-    public static Country getCountryIgnoreCase(String countryName) {
-        for (Country country : allCountries) {
-            // Comparar el nombre del país sin distinguir entre mayúsculas y minúsculas
-            if (country.getName().equalsIgnoreCase(countryName)) {
-                return country;
-            }
-        }
-        return null;
-    }
+    private static final String COUNTRIES_FILE = "./countries.json";
 
     public static void main(String[] args) {
         // Load saved data
@@ -51,7 +37,7 @@ public class DPEXSystem {
 
     public static Country getCountry(String countryName) {
         for (Country country : allCountries) {
-            if (country.getName().equals(countryName)) {
+            if (country.getName().equalsIgnoreCase(countryName)) {
                 return country;
             }
         }
@@ -66,7 +52,7 @@ public class DPEXSystem {
         try {
             JsonHandler.writeToJson(COUNTRIES_FILE, allCountries);
         } catch (IOException e) {
-            MessageBox.printMessage("An error occured while persisting countries data");
+            MessageBox.error("An error occured while persisting countries data");
         }
     }
 
@@ -76,9 +62,7 @@ public class DPEXSystem {
         ArrayList<Country> data = new ArrayList<>();
         try {
             data = JsonHandler.readFromJson(COUNTRIES_FILE, listType);
-        } catch (IOException e) {
-            e.printStackTrace(); // Manejar adecuadamente las excepciones
-        }
+        } catch (IOException e) {}
         allCountries = data;
 
     }
