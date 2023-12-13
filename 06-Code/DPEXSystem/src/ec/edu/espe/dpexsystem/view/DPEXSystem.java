@@ -20,11 +20,21 @@ import ec.edu.espe.dpexsystem.util.MessageBox;
  * @author NullPointerException
  */
 public class DPEXSystem {
+
     private static ArrayList<Country> allCountries = new ArrayList<>();
     private static ArrayList<ConsularOffice> consularOffices = new ArrayList<>();
     private static final String COUNTRIES_FILE = "countries.json";
-    
 
+    //Function that allows you to read the name of the country regardless of whether it is uppercase or lowercase
+    public static Country getCountryIgnoreCase(String countryName) {
+        for (Country country : allCountries) {
+            // Comparar el nombre del país sin distinguir entre mayúsculas y minúsculas
+            if (country.getName().equalsIgnoreCase(countryName)) {
+                return country;
+            }
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         // Load saved data
@@ -55,26 +65,30 @@ public class DPEXSystem {
     public static void saveCountries() {
         try {
             JsonHandler.writeToJson(COUNTRIES_FILE, allCountries);
-        }catch (IOException e){
+        } catch (IOException e) {
             MessageBox.printMessage("An error occured while persisting countries data");
         }
     }
 
     private static void loadCountries() {
-        Type listType = new TypeToken<ArrayList<Country>>(){}.getType();
+        Type listType = new TypeToken<ArrayList<Country>>() {
+        }.getType();
         ArrayList<Country> data = new ArrayList<>();
         try {
             data = JsonHandler.readFromJson(COUNTRIES_FILE, listType);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejar adecuadamente las excepciones
+        }
         allCountries = data;
-        
+
     }
-        // TODO inicializar un archivo con las consularoffices registradas
-    public static void addConsularOffice (ConsularOffice consularOffice){
+    // TODO inicializar un archivo con las consularoffices registradas
+
+    public static void addConsularOffice(ConsularOffice consularOffice) {
         consularOffices.add(consularOffice);
     }
-    
-    public static ConsularOffice getConsularOffice (String consularOfficeName) {
+
+    public static ConsularOffice getConsularOffice(String consularOfficeName) {
         for (ConsularOffice consularOffice : consularOffices) {
             if (consularOffice.getOfficeName().equals(consularOfficeName)) {
                 return consularOffice;
@@ -82,7 +96,7 @@ public class DPEXSystem {
         }
         return null;
     }
-    
+
     /* WIP
     public static Constituency addConstituency (Constituency constituency) {
         
@@ -90,5 +104,5 @@ public class DPEXSystem {
         newConstituency = new Constituency("name", allCountries, consularOffices);
         return newConstituency;       
     }
-    */
+     */
 }

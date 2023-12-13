@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.io.Reader;
 
 public class MainMenu {
+
     public static void showAdminMenu() {
         final List<String> menuOptions = Arrays.asList("Register a new electoral package",
                 "Modify a registered package", "List all countries", "Register a new country", "Assign new roles",
@@ -65,24 +66,18 @@ public class MainMenu {
     // ! OLD METHOD
     // public static void createPackage(Country country, ConsularOffice consularOffice, PackageType packageType) {
     //     Scanner scanner = new Scanner(System.in);
-
     //     System.out.print("Enter the package id: ");
     //     int packageId = scanner.nextInt();
     //     scanner.nextLine();
-
     //     System.out.print("Enter the status of the package: ");
     //     String status = scanner.nextLine();
-
     //     System.out.print("Enter the weight of the package (in kg): ");
     //     float weight = scanner.nextFloat();
-
     //     ElectoralPackage newPackage = new ElectoralPackage(packageId, country, consularOffice, null, status,
     //             packageType, weight);
-
     //     System.out.println("Package added successfully:");
     //     System.out.println(newPackage.toString());
     // }
-
     private static void registerElectoralPackage() {
         Country country = null;
         String jsonFilePath = "countries.json";
@@ -90,9 +85,9 @@ public class MainMenu {
 
         while (true) {
             final String countryName = UserInput.getString("Enter the country name: ");
-            country = DPEXSystem.getCountry(countryName);
+            country = DPEXSystem.getCountryIgnoreCase(countryName); // Modificación aquí
 
-            if (country != null) { 
+            if (country != null) {  // Verificar si se encontró el país
                 PackageType packageType = null;
                 boolean countryExists = false;
 
@@ -122,7 +117,7 @@ public class MainMenu {
                         System.out.println("Country ---> " + countryName + ": " + packageType);
                         // Aquí puedes realizar la lógica para registrar el paquete electoral
                         // DPEXSystem.registerPackage(new ElectoralPackage(country, packageType));
-                        break;  
+                        break;  // Salir del bucle después de encontrar el país
                     } else {
                         System.out.println("The country you entered doesn't exist");
                     }
@@ -132,18 +127,10 @@ public class MainMenu {
                 }
             } else {
                 System.out.println("The country you entered doesn't exist");
-                break;  
-                
-                // System.out.print("Enter the type of the package: "); // le pido ingreso solo para que el porgrama corra
-                // String type = scanner.nextLine();
-
-                // return new PackageType(id, type);
-                // TODO: TERMINAR INGRESO PAQUETES
- 
+                break;  // Salir del bucle si no se encuentra el país
             }
         }
     }
-        
 
     private static void modifyPackages() {
 
@@ -155,28 +142,23 @@ public class MainMenu {
         DPEXSystem.addCountry(new Country(countryName, ecuadorianPopulation));
         System.out.println("Country registered successfully!");
     }
-    
+
     private static void registerConsularOffice() {
         String consularOfficeName = UserInput.getString("Enter the name of the consular office: ");
         String consularOfficeAddress = UserInput.getString("Enter the addres of the consular office: ");
         DPEXSystem.addConsularOffice(new ConsularOffice(consularOfficeName, consularOfficeAddress));
     }
-    
+
     /*
     private static void registerConstituency() {
         String ConstutencyName = UserInput.getString("Enter the name of the Constituency: ");
         String ConstituencyCountry = DPEXSystem
         DPEXSystem.addConsularOffice(new ConsularOffice(consularOfficeName, consularOfficeAddress));
     }
-    */
-        
-      //  String 
-        
-        //el country se pide o se escoje de los agregados?
-        
-      //  DPEXSystem.addConstituency(new Constituency(constituencyName, country));
-    
-    
+     */
+    //  String 
+    //el country se pide o se escoje de los agregados?
+    //  DPEXSystem.addConstituency(new Constituency(constituencyName, country));
     private static void printAllCountries() {
         for (Country country : DPEXSystem.getAllCountries()) {
             System.out.println(country);
