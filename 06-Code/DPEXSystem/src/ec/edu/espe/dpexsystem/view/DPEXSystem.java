@@ -113,16 +113,7 @@ public class DPEXSystem {
     }
     
     public static void addElectoralPackage(ElectoralPackage electoralPackage) {
-    allPackages.add(electoralPackage);
-}
-
-    public static ElectoralPackage getElectoralPackageById(int packageId) {
-        for (ElectoralPackage electoralPackage : allPackages) {
-            if (electoralPackage.getPackageId() == packageId) {
-                return electoralPackage;
-            }
-        }
-        return null;
+        allPackages.add(electoralPackage);
     }
 
 }

@@ -119,11 +119,9 @@ public class MainMenu {
         }
 
         while (true) {
-            System.out.println("\nModify Package Menu");
-            System.out.println("1) Country");
-            System.out.println("2) Weight");
-            System.out.println("3) Status");
-            System.out.println("4) Exit");
+            final List<String> menuModifyPackage = Arrays.asList("Country",
+                "Weight", "Status", "Exit");
+            final ConsoleMenu menu = new ConsoleMenu("Modify Package Menu", menuModifyPackage);
 
             int choice = UserInput.getInt("Enter your choice: ");
 
@@ -176,9 +174,8 @@ public class MainMenu {
     }
 
     private static void modifyStatus(ElectoralPackage selectedPackage) {
-        System.out.println("1. PENDING");
-        System.out.println("2. SENT");
-        System.out.println("3. ARRIVED");
+        final List<String> menuModifyStatus = Arrays.asList("PENDING","SENT", "ARRIVED");
+        final ConsoleMenu menu = new ConsoleMenu("Modify Status", menuModifyStatus);
 
         int choice = UserInput.getInt("Choose the new status:");
 
