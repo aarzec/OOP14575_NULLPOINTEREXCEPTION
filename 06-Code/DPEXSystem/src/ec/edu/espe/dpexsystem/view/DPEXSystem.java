@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
+import ec.edu.espe.dpexsystem.model.ElectoralPackage;
 import ec.edu.espe.dpexsystem.model.User;
 import ec.edu.espe.dpexsystem.util.JsonHandler;
 import ec.edu.espe.dpexsystem.util.LoginMenu;
@@ -26,6 +27,8 @@ public class DPEXSystem {
     public static ArrayList<User> users = new ArrayList<>();
     private static ArrayList<ConsularOffice> consularOffices = new ArrayList<>();
     private static final String COUNTRIES_FILE = "./countries.json";
+    private static ArrayList<ElectoralPackage> allPackages = new ArrayList<>();
+
 
     private static User currentUser;
 
@@ -104,4 +107,22 @@ public class DPEXSystem {
     public static User getCurrentUser() {
         return currentUser;
     }
+    
+    public static ArrayList<ElectoralPackage> getAllPackages() {
+        return allPackages;
+    }
+    
+    public static void addElectoralPackage(ElectoralPackage electoralPackage) {
+    allPackages.add(electoralPackage);
+}
+
+    public static ElectoralPackage getElectoralPackageById(int packageId) {
+        for (ElectoralPackage electoralPackage : allPackages) {
+            if (electoralPackage.getPackageId() == packageId) {
+                return electoralPackage;
+            }
+        }
+        return null;
+    }
+
 }

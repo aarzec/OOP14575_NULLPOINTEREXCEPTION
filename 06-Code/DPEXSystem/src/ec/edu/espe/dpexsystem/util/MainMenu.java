@@ -11,10 +11,12 @@ import com.google.gson.Gson;
 import ec.edu.espe.dpexsystem.model.Constituency;
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
+import ec.edu.espe.dpexsystem.model.ElectoralPackage;
 import ec.edu.espe.dpexsystem.model.User;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage.PackageType;
 import ec.edu.espe.dpexsystem.model.User.UserType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
+import java.util.Scanner;
 
 public class MainMenu {
     public static void showMainMenu(User loggedUser) {
@@ -107,7 +109,96 @@ public class MainMenu {
     }
 
     private static void modifyPackages() {
+        int packageId = UserInput.getInt("Enter the ID of the package you want to modify: ");
 
+        ElectoralPackage selectedPackage = findPackageById(packageId);
+
+        if (selectedPackage == null) {
+            System.out.println("Package not found with ID: " + packageId);
+            return;
+        }
+
+        while (true) {
+            System.out.println("\nModify Package Menu");
+            System.out.println("1) Country");
+            System.out.println("2) Weight");
+            System.out.println("3) Status");
+            System.out.println("4) Exit");
+
+            int choice = UserInput.getInt("Enter your choice: ");
+
+            switch (choice) {
+                case 1:
+                    modifyCountry(selectedPackage);
+                    break;
+                case 2:
+                    modifyWeight(selectedPackage);
+                    break;
+                case 3:
+                    modifyStatus(selectedPackage);
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid option. Please choose a valid option.");
+            }
+        }
+    }
+
+    private static ElectoralPackage findPackageById(int packageId) {
+        for (ElectoralPackage electoralPackage : DPEXSystem.getAllPackages()) {
+            if (electoralPackage.getPackageId() == packageId) {
+                return electoralPackage;
+            }
+        }
+        return null;
+    }
+
+    private static void modifyCountry(ElectoralPackage selectedPackage) {
+        String newCountryName = UserInput.getString("Enter the new country for the package: ");
+        Country newCountry = DPEXSystem.getCountry(newCountryName);
+
+        if (newCountry == null) {
+            System.out.println("The entered country does not exist.");
+            return;
+        }
+
+        selectedPackage.setCountry(newCountry);
+        System.out.println("Country modified successfully.");
+    }
+
+    private static void modifyWeight(ElectoralPackage selectedPackage) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the new weight for the package: ");
+        float newWeight = scanner.nextFloat();
+        selectedPackage.setWeight(newWeight);
+        System.out.println("Weight modified successfully.");
+    }
+
+    private static void modifyStatus(ElectoralPackage selectedPackage) {
+        System.out.println("1. PENDING");
+        System.out.println("2. SENT");
+        System.out.println("3. ARRIVED");
+
+        int choice = UserInput.getInt("Choose the new status:");
+
+        switch (choice) {
+            case 1:
+                selectedPackage.setStatus(ElectoralPackage.PackageStatus.PENDING);
+                break;
+            case 2:
+                selectedPackage.setStatus(ElectoralPackage.PackageStatus.SENT);
+                break;
+            case 3:
+                selectedPackage.setStatus(ElectoralPackage.PackageStatus.ARRIVED);
+                break;
+            default:
+                System.out.println("Invalid choice. Setting status to PENDING.");
+                selectedPackage.setStatus(ElectoralPackage.PackageStatus.PENDING);
+                break;
+        }
+
+        System.out.println("Status modified successfully.");
     }
 
     private static void registerCountry() {

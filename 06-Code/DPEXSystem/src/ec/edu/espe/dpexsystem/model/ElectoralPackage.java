@@ -25,11 +25,11 @@ public class ElectoralPackage {
     private ConsularOffice consularOffice;
     private Constituency constituency;
     private PackageType packageType;
-    private float weigth;
+    private float weight;
     private PackageStatus status;
 
     public ElectoralPackage(Country country, ConsularOffice consularOffice, Constituency constituency,
-            PackageStatus status, PackageType packageType, float weigth) {
+            PackageStatus status, PackageType packageType, float weight) {
         totalRegisteredPackages++;
 
         this.packageId = totalRegisteredPackages;
@@ -38,7 +38,7 @@ public class ElectoralPackage {
         this.constituency = constituency;
         this.status = status;
         this.packageType = packageType;
-        this.weigth = weigth;
+        this.weight = weight;
     }
 
     public void updateStatus(String status) {
@@ -122,15 +122,15 @@ public class ElectoralPackage {
     /**
      * @return the weigth
      */
-    public float getWeigth() {
-        return weigth;
+    public float getWeight() {
+        return weight;
     }
 
     /**
-     * @param weigth the weigth to set
+     * @param weight the weigth to set
      */
-    public void setWeigth(float weigth) {
-        this.weigth = weigth;
+    public void setWeight(float weight) {
+        this.weight = weight;
     }
 
     public PackageStatus getStatus() {
