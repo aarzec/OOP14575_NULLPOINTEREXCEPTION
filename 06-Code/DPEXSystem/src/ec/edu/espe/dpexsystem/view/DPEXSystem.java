@@ -28,6 +28,7 @@ public class DPEXSystem {
     private static ArrayList<ConsularOffice> consularOffices = new ArrayList<>();
     private static final String COUNTRIES_FILE = "./countries.json";
     private static ArrayList<ElectoralPackage> allPackages = new ArrayList<>();
+    private static final String PACKAGES_FILE = "./packages.json";
 
 
     private static User currentUser;
@@ -114,6 +115,14 @@ public class DPEXSystem {
     
     public static void addElectoralPackage(ElectoralPackage electoralPackage) {
         allPackages.add(electoralPackage);
+    }
+    
+    public static void saveElectoralPackages() {
+        try {
+            JsonHandler.writeToJson(PACKAGES_FILE, allPackages);
+        } catch (IOException e) {
+            MessageBox.error("An error occured while persisting packages data");
+        }
     }
 
 }

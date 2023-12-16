@@ -53,4 +53,19 @@ public class UserInput {
         }
         return intInput;
     }
+    
+    public static float getFloat(String message) {
+        float floatInput;
+        String input;
+        while (true) {
+            input = getString(message);
+            try {
+                floatInput = Float.parseFloat(input);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Your input is not a valid float");
+            }
+        }
+        return floatInput;
+    }
 }

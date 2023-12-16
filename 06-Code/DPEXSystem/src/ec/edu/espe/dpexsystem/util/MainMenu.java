@@ -16,7 +16,6 @@ import ec.edu.espe.dpexsystem.model.User;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage.PackageType;
 import ec.edu.espe.dpexsystem.model.User.UserType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
-import java.util.Scanner;
 
 public class MainMenu {
     public static void showMainMenu(User loggedUser) {
@@ -166,9 +165,7 @@ public class MainMenu {
     }
 
     private static void modifyWeight(ElectoralPackage selectedPackage) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the new weight for the package: ");
-        float newWeight = scanner.nextFloat();
+        float newWeight = UserInput.getFloat("Enter the new weight for the package: ");
         selectedPackage.setWeight(newWeight);
         System.out.println("Weight modified successfully.");
     }
@@ -237,9 +234,7 @@ public class MainMenu {
      * consularOfficeAddress));
      * }
      */
-    // String
-    // el country se pide o se escoje de los agregados?
-    // DPEXSystem.addConstituency(new Constituency(constituencyName, country));
+
     private static void printAllCountries() {
         for (Country country : DPEXSystem.getAllCountries()) {
             System.out.println(country);
