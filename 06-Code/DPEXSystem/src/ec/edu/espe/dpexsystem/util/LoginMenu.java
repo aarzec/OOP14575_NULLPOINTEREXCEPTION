@@ -27,7 +27,7 @@ public class LoginMenu {
 
             System.out.println(Color.BLUE + "\tPlease enter your credentials below: ");
 
-            String username = new String(console.readLine(Color.YELLOW + "Username: " + Color.RESET));
+            String username = console.readLine(Color.YELLOW + "Username: " + Color.RESET);
             String password = new String(console.readPassword(Color.YELLOW + "Password: " + Color.RESET));
 
             loggedInUser = User.login(username, password);

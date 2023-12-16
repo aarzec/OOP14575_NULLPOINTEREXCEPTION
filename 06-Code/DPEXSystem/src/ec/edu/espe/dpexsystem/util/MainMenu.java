@@ -54,6 +54,7 @@ public class MainMenu {
                     logInNewUser();
                     break;
                 case 7:
+                    LogOut();
                 case 8:
                     System.out.println("Thanks for using the DPEX System");
                     System.exit(0);
@@ -260,5 +261,10 @@ public class MainMenu {
     private static void logInNewUser() {
 
         System.out.println("Executing option 5: Log in as a different user");
+    }
+    
+    private static void LogOut(){
+        System.out.println("Logged out succesfuly");
+        LoginMenu.showLoginPrompt();
     }
 }
