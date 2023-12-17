@@ -18,13 +18,15 @@ import ec.edu.espe.dpexsystem.model.User.UserType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
 
 public class MainMenu {
+
     public static void showMainMenu(User loggedUser) {
         if (loggedUser.getType() == UserType.ADMINISTRATOR) {
             showAdminMenu();
         }
     }
-    //n de la t. cambiado showAdminMene de private a public para poder ocuparlo, cambiar antes de pushear
-    public static void showAdminMenu(){
+
+
+    private static void showAdminMenu() {
         final List<String> menuOptions = Arrays.asList("Register a new electoral package",
                 "Modify a registered package", "List all countries", "Register a new country", "Assign new roles",
                 "Export electoral packages data", "Logout", "Quit");
@@ -84,10 +86,10 @@ public class MainMenu {
     // System.out.println("Package added successfully:");
     // System.out.println(newPackage.toString());
     // }
+    
     private static void registerElectoralPackage() {
         Country country;
         Constituency constituency;
-        
 
         while (true) {
             final String countryName = UserInput.getString("Enter the country name: ");
@@ -95,19 +97,18 @@ public class MainMenu {
             if (country == null) {
                 System.out.println("The country you entered doesn't exist");
             }
-  
+
             String consularOfficeName = UserInput.getString("Enter the name of the consular office: ");
             String consularOfficeAddress = UserInput.getString("Enter the address of the consular office: ");
             ConsularOffice consularOffice = new ConsularOffice(consularOfficeName, consularOfficeAddress);
             DPEXSystem.addConsularOffice(consularOffice);
 
             String constituencyName = UserInput.getString("Enter the name of the constituency: ");
-                constituency = new Constituency();
-                constituency.setName(constituencyName);
-                constituency.addCountry(country);
-                constituency.addConsularOffice(consularOffice);
+            constituency = new Constituency();
+            constituency.setName(constituencyName);
+            constituency.addCountry(country);
+            constituency.addConsularOffice(consularOffice);
 
-            
             int ecuadorianPopulation = country.getEcuadorianPopulation();
             PackageType packageType;
             if (ecuadorianPopulation < 100) {
@@ -117,16 +118,16 @@ public class MainMenu {
             } else {
                 packageType = PackageType.GENERO;
             }
-        
+
             ElectoralPackage packageWeight = new ElectoralPackage();
             float weight;
             weight = UserInput.getFloat("Enter the package's weigth");
             packageWeight.setWeight(weight);
             break;
-        }        
-  
-    }
+        }
 
+    }
+    
     private static void modifyPackages() {
         int packageId = UserInput.getInt("Enter the ID of the package you want to modify: ");
 
@@ -139,7 +140,7 @@ public class MainMenu {
 
         while (true) {
             final List<String> menuModifyPackage = Arrays.asList("Country",
-                "Weight", "Status", "Exit");
+                    "Weight", "Status", "Exit");
             final ConsoleMenu menu = new ConsoleMenu("Modify Package Menu", menuModifyPackage);
 
             int choice = UserInput.getInt("Enter your choice: ");
@@ -191,7 +192,7 @@ public class MainMenu {
     }
 
     private static void modifyStatus(ElectoralPackage selectedPackage) {
-        final List<String> menuModifyStatus = Arrays.asList("PENDING","SENT", "ARRIVED");
+        final List<String> menuModifyStatus = Arrays.asList("PENDING", "SENT", "ARRIVED");
         final ConsoleMenu menu = new ConsoleMenu("Modify Status", menuModifyStatus);
 
         int choice = UserInput.getInt("Choose the new status:");
@@ -214,7 +215,7 @@ public class MainMenu {
 
         System.out.println("Status modified successfully.");
     }
-
+    
     private static void registerCountry() {
         String countryName;
         while (true) {
@@ -235,7 +236,6 @@ public class MainMenu {
         MessageBox.info("Country registered successfully");
     }
 
-
     private static void printAllCountries() {
         for (Country country : DPEXSystem.getAllCountries()) {
             System.out.println(country);
@@ -243,7 +243,7 @@ public class MainMenu {
     }
 
     private static void createNewRole() {
-        //
+        // TO DO
     }
 
     public static void saveToJson(Package[] packages) {
@@ -260,10 +260,10 @@ public class MainMenu {
 
     private static void logInNewUser() {
 
-        System.out.println("Executing option 5: Log in as a different user");
+        System.out.println("Executing option 6: Log in as a different user");
     }
-    
-    private static void LogOut(){
+
+    private static void LogOut() {
         System.out.println("Logged out succesfuly");
         LoginMenu.showLoginPrompt();
     }

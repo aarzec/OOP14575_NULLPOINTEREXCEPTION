@@ -5,6 +5,7 @@ package ec.edu.espe.dpexsystem.model;
  * @author NullPointerException
  */
 public class ConsularOffice {
+
     private String officeName;
     private String address;
 
@@ -24,15 +25,14 @@ public class ConsularOffice {
         this.address = address;
     }
 
-    
     public ConsularOffice(String officeName, String address) {
         this.officeName = officeName;
         this.address = address;
     }
 
-    public String getOfficeDetails(){
-            
+    public String getOfficeDetails() {
+
         return null;
-            
+
     }
 }

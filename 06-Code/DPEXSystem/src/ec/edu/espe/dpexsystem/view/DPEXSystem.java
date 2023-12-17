@@ -23,6 +23,7 @@ import ec.edu.espe.dpexsystem.util.MessageBox;
  * @author NullPointerException
  */
 public class DPEXSystem {
+
     private static ArrayList<Country> allCountries = new ArrayList<>();
     public static ArrayList<User> users = new ArrayList<>();
     private static ArrayList<ConsularOffice> consularOffices = new ArrayList<>();
@@ -30,18 +31,16 @@ public class DPEXSystem {
     private static ArrayList<ElectoralPackage> allPackages = new ArrayList<>();
     private static final String PACKAGES_FILE = "./packages.json";
 
-
     private static User currentUser;
 
     public static void main(String[] args) {
-        
-        // Cambie metodo showMainMenu por showAdminMenu(); para poder ejecutar desde Netbeams, cambiar antes de la v final
+
+        // Cambie metodo showMainMenu por showAdminMenu(); para poder ejecutar desde Netbeams, cambiar antes del pushfinal
         initFolderStructure();
         loadCountries();
-       // users = User.loadFromFile();
-
-        //currentUser = LoginMenu.showLoginPrompt();
-        MainMenu.showAdminMenu();
+        users = User.loadFromFile();
+        currentUser = LoginMenu.showLoginPrompt();
+        MainMenu.showMainMenu(currentUser);
     }
 
     public static void addCountry(Country country) {
@@ -67,7 +66,9 @@ public class DPEXSystem {
                 MessageBox.error("There was a problem while initializing the folders structure.");
             }
         }
-    };
+    }
+
+    ;
 
     public static ArrayList<Country> getAllCountries() {
         return allCountries;
@@ -109,15 +110,15 @@ public class DPEXSystem {
     public static User getCurrentUser() {
         return currentUser;
     }
-    
+
     public static ArrayList<ElectoralPackage> getAllPackages() {
         return allPackages;
     }
-    
+
     public static void addElectoralPackage(ElectoralPackage electoralPackage) {
         allPackages.add(electoralPackage);
     }
-    
+
     public static void saveElectoralPackages() {
         try {
             JsonHandler.writeToJson(PACKAGES_FILE, allPackages);

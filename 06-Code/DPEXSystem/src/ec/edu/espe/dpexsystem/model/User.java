@@ -16,6 +16,7 @@ import ec.edu.espe.dpexsystem.view.DPEXSystem;
  * @author NullPointerException
  */
 public class User {
+
     private final UUID id;
     private String username;
     private String password;
