@@ -34,12 +34,14 @@ public class DPEXSystem {
     private static User currentUser;
 
     public static void main(String[] args) {
+        
+        // Cambie metodo showMainMenu por showAdminMenu(); para poder ejecutar desde Netbeams, cambiar antes de la v final
         initFolderStructure();
         loadCountries();
-        users = User.loadFromFile();
+       // users = User.loadFromFile();
 
-        currentUser = LoginMenu.showLoginPrompt();
-        MainMenu.showMainMenu(currentUser);
+        //currentUser = LoginMenu.showLoginPrompt();
+        MainMenu.showAdminMenu();
     }
 
     public static void addCountry(Country country) {
@@ -90,7 +92,6 @@ public class DPEXSystem {
         allCountries = data;
 
     }
-    // TODO inicializar un archivo con las consularoffices registradas
 
     public static void addConsularOffice(ConsularOffice consularOffice) {
         consularOffices.add(consularOffice);

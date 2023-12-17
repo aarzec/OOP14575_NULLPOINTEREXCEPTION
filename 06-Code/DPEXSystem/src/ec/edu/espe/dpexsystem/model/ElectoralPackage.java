@@ -6,6 +6,9 @@ package ec.edu.espe.dpexsystem.model;
  */
 
 public class ElectoralPackage {
+
+    public ElectoralPackage() {
+    }
     public static int totalRegisteredPackages = 0;
 
     public static enum PackageStatus {
@@ -28,18 +31,6 @@ public class ElectoralPackage {
     private float weight;
     private PackageStatus status;
 
-    public ElectoralPackage(Country country, ConsularOffice consularOffice, Constituency constituency,
-            PackageStatus status, PackageType packageType, float weight) {
-        totalRegisteredPackages++;
-
-        this.packageId = totalRegisteredPackages;
-        this.country = country;
-        this.consularOffice = consularOffice;
-        this.constituency = constituency;
-        this.status = status;
-        this.packageType = packageType;
-        this.weight = weight;
-    }
 
     public void updateStatus(String status) {
 

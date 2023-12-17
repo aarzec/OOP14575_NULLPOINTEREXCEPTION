@@ -9,16 +9,25 @@ import java.util.Scanner;
  */
 
 public class Constituency {
+
     private String name;
     private ArrayList<Country> countries;
     private ArrayList<ConsularOffice> consularOffices;
 
-    public Constituency(String name, ArrayList<Country> countries, ArrayList<ConsularOffice> consularOffices) {
-        this.name = name;
-        this.countries = countries;
-        this.consularOffices = consularOffices;
+
+     public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public Constituency() {
+        this.countries = new ArrayList<>();
+        this.consularOffices = new ArrayList<>();
+    }
+    
     public void addCountry(Country country) {
         this.countries.add(country);
     }
