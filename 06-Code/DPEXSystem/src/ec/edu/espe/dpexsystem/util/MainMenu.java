@@ -16,15 +16,16 @@ import ec.edu.espe.dpexsystem.model.User;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage.PackageType;
 import ec.edu.espe.dpexsystem.model.User.UserType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
+import java.util.Random;
 
 public class MainMenu {
 
-    public static void showMainMenu(User loggedUser) {
+     public static void showMainMenu(User loggedUser) {
         if (loggedUser.getType() == UserType.ADMINISTRATOR) {
             showAdminMenu();
         }
     }
-
+    
 
     private static void showAdminMenu() {
         final List<String> menuOptions = Arrays.asList("Register a new electoral package",
@@ -54,7 +55,7 @@ public class MainMenu {
                     createNewRole();
                     break;
                 case 6:
-                    logInNewUser();
+
                     break;
                 case 7:
                     LogOut();
@@ -68,30 +69,14 @@ public class MainMenu {
             ConsoleUtil.consolePause();
         }
     }
-
-    // ! OLD METHOD
-    // public static void createPackage(Country country, ConsularOffice
-    // consularOffice, PackageType packageType) {
-    // Scanner scanner = new Scanner(System.in);
-    // System.out.print("Enter the package id: ");
-    // int packageId = scanner.nextInt();
-    // scanner.nextLine();
-    // System.out.print("Enter the status of the package: ");
-    // String status = scanner.nextLine();
-    // System.out.print("Enter the weight of the package (in kg): ");
-    // float weight = scanner.nextFloat();
-    // ElectoralPackage newPackage = new ElectoralPackage(packageId, country,
-    // consularOffice, null, status,
-    // packageType, weight);
-    // System.out.println("Package added successfully:");
-    // System.out.println(newPackage.toString());
-    // }
     
     private static void registerElectoralPackage() {
         Country country;
         Constituency constituency;
+      
 
         while (true) {
+            
             final String countryName = UserInput.getString("Enter the country name: ");
             country = DPEXSystem.getCountry(countryName);
             if (country == null) {
@@ -123,6 +108,11 @@ public class MainMenu {
             float weight;
             weight = UserInput.getFloat("Enter the package's weigth");
             packageWeight.setWeight(weight);
+            
+            int randomId = new Random().nextInt(9000) + 1000;
+            packageWeight.setPackageId(randomId);
+            
+            System.err.println("Your package has been succesfully registered. Package ID: " + randomId);
             break;
         }
 
@@ -252,7 +242,7 @@ public class MainMenu {
 
         try (FileWriter writer = new FileWriter("package.json")) {
             gson.toJson(packageList, writer);
-            System.out.println("Chickens saved to JSON successfully.");
+            System.out.println("Packages saved to JSON successfully.");
         } catch (IOException e) {
             System.out.println("Error writing to JSON file: " + e.getMessage());
         }
@@ -267,4 +257,6 @@ public class MainMenu {
         System.out.println("Logged out succesfuly");
         LoginMenu.showLoginPrompt();
     }
+
+
 }

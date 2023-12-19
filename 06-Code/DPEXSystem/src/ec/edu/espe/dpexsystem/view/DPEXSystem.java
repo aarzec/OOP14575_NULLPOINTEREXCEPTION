@@ -35,12 +35,12 @@ public class DPEXSystem {
 
     public static void main(String[] args) {
 
-        // Cambie metodo showMainMenu por showAdminMenu(); para poder ejecutar desde Netbeams, cambiar antes del pushfinal
         initFolderStructure();
         loadCountries();
         users = User.loadFromFile();
         currentUser = LoginMenu.showLoginPrompt();
         MainMenu.showMainMenu(currentUser);
+  
     }
 
     public static void addCountry(Country country) {
@@ -68,8 +68,6 @@ public class DPEXSystem {
         }
     }
 
-    ;
-
     public static ArrayList<Country> getAllCountries() {
         return allCountries;
     }
@@ -91,7 +89,6 @@ public class DPEXSystem {
         } catch (IOException e) {
         }
         allCountries = data;
-
     }
 
     public static void addConsularOffice(ConsularOffice consularOffice) {
@@ -126,5 +123,4 @@ public class DPEXSystem {
             MessageBox.error("An error occured while persisting packages data");
         }
     }
-
 }
