@@ -16,7 +16,6 @@ import ec.edu.espe.dpexsystem.model.User;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage.PackageType;
 import ec.edu.espe.dpexsystem.model.User.UserType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
-import java.util.Random;
 
 public class MainMenu {
 
@@ -73,49 +72,43 @@ public class MainMenu {
     private static void registerElectoralPackage() {
         Country country;
         Constituency constituency;
-      
 
         while (true) {
-            
             final String countryName = UserInput.getString("Enter the country name: ");
             country = DPEXSystem.getCountry(countryName);
             if (country == null) {
                 System.out.println("The country you entered doesn't exist");
+                continue;
             }
-
-            String consularOfficeName = UserInput.getString("Enter the name of the consular office: ");
-            String consularOfficeAddress = UserInput.getString("Enter the address of the consular office: ");
-            ConsularOffice consularOffice = new ConsularOffice(consularOfficeName, consularOfficeAddress);
-            DPEXSystem.addConsularOffice(consularOffice);
 
             String constituencyName = UserInput.getString("Enter the name of the constituency: ");
             constituency = new Constituency();
             constituency.setName(constituencyName);
             constituency.addCountry(country);
-            constituency.addConsularOffice(consularOffice);
 
             int ecuadorianPopulation = country.getEcuadorianPopulation();
-            PackageType packageType;
+            ElectoralPackage.PackageType packageType;
             if (ecuadorianPopulation < 100) {
-                packageType = PackageType.CNE;
+                packageType = ElectoralPackage.PackageType.CNE;
             } else if (ecuadorianPopulation >= 100 && ecuadorianPopulation < 900) {
-                packageType = PackageType.MIXTO;
+                packageType = ElectoralPackage.PackageType.MIXTO;
             } else {
-                packageType = PackageType.GENERO;
+                packageType = ElectoralPackage.PackageType.GENERO;
             }
 
-            ElectoralPackage packageWeight = new ElectoralPackage();
-            float weight;
-            weight = UserInput.getFloat("Enter the package's weigth");
-            packageWeight.setWeight(weight);
-            
-            int randomId = new Random().nextInt(9000) + 1000;
-            packageWeight.setPackageId(randomId);
-            
-            System.err.println("Your package has been succesfully registered. Package ID: " + randomId);
+            float weight = UserInput.getFloat("Enter the package's weight: ");
+            ElectoralPackage electoralPackage = new ElectoralPackage();
+            electoralPackage.setCountry(country);
+            electoralPackage.setConstituency(constituency);
+            electoralPackage.setPackageType(packageType);
+            electoralPackage.setWeight(weight);
+
+            DPEXSystem.addElectoralPackage(electoralPackage);
+
+            System.out.println("Your package has been successfully registered. Package ID: " + electoralPackage.getPackageId());
+
             break;
         }
-
     }
     
     private static void modifyPackages() {
@@ -133,7 +126,8 @@ public class MainMenu {
                     "Weight", "Status", "Exit");
             final ConsoleMenu menu = new ConsoleMenu("Modify Package Menu", menuModifyPackage);
 
-            int choice = UserInput.getInt("Enter your choice: ");
+            menu.displayMenu();
+            int choice = menu.getUserChoice();
 
             switch (choice) {
                 case 1:
@@ -185,7 +179,8 @@ public class MainMenu {
         final List<String> menuModifyStatus = Arrays.asList("PENDING", "SENT", "ARRIVED");
         final ConsoleMenu menu = new ConsoleMenu("Modify Status", menuModifyStatus);
 
-        int choice = UserInput.getInt("Choose the new status:");
+        menu.displayMenu();
+        int choice = menu.getUserChoice();
 
         switch (choice) {
             case 1:
@@ -216,7 +211,7 @@ public class MainMenu {
             }
             break;
         }
-        int ecuadorianPopulation = UserInput.getInt("Enter the Ecuadorian population of the country: ", 0);
+        int ecuadorianPopulation = UserInput.getInt("Enter the Ecuadorian population of the country: ");
 
         String consularOfficeName = UserInput.getString("Enter the country's consular office name: ");
         String consularOfficeAddr = UserInput.getString("Enter the consular office's address: ");

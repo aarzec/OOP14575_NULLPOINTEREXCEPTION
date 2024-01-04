@@ -6,10 +6,6 @@ package ec.edu.espe.dpexsystem.model;
  */
 public class ElectoralPackage {
 
-    public ElectoralPackage() {
-    }
-    public static int totalRegisteredPackages = 0;
-
     public static enum PackageStatus {
         PENDING,
         SENT,
@@ -29,6 +25,12 @@ public class ElectoralPackage {
     private PackageType packageType;
     private float weight;
     private PackageStatus status;
+    public static int currentPackageId = 0;
+
+    public ElectoralPackage() {
+        this.packageId = ++currentPackageId;
+        this.status = PackageStatus.PENDING;
+    }
 
     public void updateStatus(String status) {
 
