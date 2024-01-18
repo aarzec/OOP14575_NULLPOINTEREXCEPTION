@@ -1,0 +1,58 @@
+[
+  {
+    "packageId": 1,
+    "country": {
+      "name": "Colombia",
+      "ecuadorianPopulation": 434723,
+      "consularOffice": {
+        "officeName": "Oficina Consular Ecuatoriana en Colombia",
+        "address": "Panamericana Norte E113"
+      }
+    },
+    "constituency": {
+      "name": "Medellin",
+      "countries": [
+        {
+          "name": "Colombia",
+          "ecuadorianPopulation": 434723,
+          "consularOffice": {
+            "officeName": "Oficina Consular Ecuatoriana en Colombia",
+            "address": "Panamericana Norte E113"
+          }
+        }
+      ],
+      "consularOffices": []
+    },
+    "packageType": "GENERO",
+    "weight": 40.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 2,
+    "country": {
+      "name": "ecuador",
+      "ecuadorianPopulation": 1234,
+      "consularOffice": {
+        "officeName": "quito",
+        "address": "aaa"
+      }
+    },
+    "constituency": {
+      "name": "Quito",
+      "countries": [
+        {
+          "name": "ecuador",
+          "ecuadorianPopulation": 1234,
+          "consularOffice": {
+            "officeName": "quito",
+            "address": "aaa"
+          }
+        }
+      ],
+      "consularOffices": []
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  }
+]

@@ -7,18 +7,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import ec.edu.espe.dpexsystem.model.Constituency;
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage;
 import ec.edu.espe.dpexsystem.model.User;
-import ec.edu.espe.dpexsystem.model.ElectoralPackage.PackageType;
 import ec.edu.espe.dpexsystem.model.User.UserType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
 
 public class MainMenu {
-
      public static void showMainMenu(User loggedUser) {
         if (loggedUser.getType() == UserType.ADMINISTRATOR) {
             showAdminMenu();
@@ -29,7 +28,7 @@ public class MainMenu {
     private static void showAdminMenu() {
         final List<String> menuOptions = Arrays.asList("Register a new electoral package",
                 "Modify a registered package", "List all countries", "Register a new country", "Assign new roles",
-                "Export electoral packages data", "Logout", "Quit");
+                "Export electoral packages data as json","Export electoral packages data as csv", "Logout", "Quit");
         final ConsoleMenu menu = new ConsoleMenu("Main Menu - Administrator", menuOptions);
 
         ConsoleUtil.clearConsole();
@@ -54,11 +53,15 @@ public class MainMenu {
                     createNewRole();
                     break;
                 case 6:
-
+                     saveToJson(DPEXSystem.getAllPackages());
                     break;
-                case 7:
-                    LogOut();
+                case 7:                  
+                     saveToCsv(DPEXSystem.getAllPackages());
+                     break;                    
                 case 8:
+                    LogOut();
+                    break;
+                case 9:
                     System.out.println("Thanks for using the DPEX System");
                     System.exit(0);
                     break;
@@ -231,20 +234,42 @@ public class MainMenu {
         // TO DO
     }
 
-    public static void saveToJson(Package[] packages) {
-        Gson gson = new Gson();
-        ArrayList<Package> packageList = new ArrayList<>();
+     public static void saveToJson(ArrayList<ElectoralPackage> packages) {
+        Gson gson =  new GsonBuilder().setPrettyPrinting().create();
 
-        try (FileWriter writer = new FileWriter("package.json")) {
-            gson.toJson(packageList, writer);
-            System.out.println("Packages saved to JSON successfully.");
+        try (FileWriter writer = new FileWriter("packages.json")) {
+            gson.toJson(packages, writer);
+            System.out.println("Electoral packages saved to JSON successfully.");
         } catch (IOException e) {
             System.out.println("Error writing to JSON file: " + e.getMessage());
+        }
+    
+    }
+     
+     public static void saveToCsv(ArrayList<ElectoralPackage> packages) {
+        String csvFileName = "packages.csv";
+
+        try (FileWriter writer = new FileWriter(csvFileName)) {
+ 
+            writer.write("PackageId,Country,Constituency,PackageType,Weight,Status\n");
+
+            for (ElectoralPackage electoralPackage : packages) {
+                writer.write(String.format("%d,%s,%s,%s,%.2f,%s\n",
+                        electoralPackage.getPackageId(),
+                        electoralPackage.getCountry().getName(),
+                        electoralPackage.getConstituency().getName(),
+                        electoralPackage.getPackageType(),
+                        electoralPackage.getWeight(),
+                        electoralPackage.getStatus()));
+            }
+
+            System.out.println("Electoral packages saved to CSV successfully.");
+        } catch (IOException e) {
+            System.out.println("Error writing to CSV file: " + e.getMessage());
         }
     }
 
     private static void logInNewUser() {
-
         System.out.println("Executing option 6: Log in as a different user");
     }
 
@@ -252,6 +277,5 @@ public class MainMenu {
         System.out.println("Logged out succesfuly");
         LoginMenu.showLoginPrompt();
     }
-
 
 }

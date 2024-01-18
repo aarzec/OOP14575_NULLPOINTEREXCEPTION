@@ -40,7 +40,6 @@ public class DPEXSystem {
         users = User.loadFromFile();
         currentUser = LoginMenu.showLoginPrompt();
         MainMenu.showMainMenu(currentUser);
-  
     }
 
     public static void addCountry(Country country) {
