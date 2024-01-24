@@ -1,4 +1,4 @@
-package ec.edu.espe.dpexsystem.util;
+package ec.edu.espe.dpexsystem.utils;
 
 public class MessageBox {
     private static void printMessage(String message, String prefix, String color, boolean pause, boolean clear) {

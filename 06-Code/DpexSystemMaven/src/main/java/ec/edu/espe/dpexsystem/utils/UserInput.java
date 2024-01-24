@@ -1,4 +1,4 @@
-package ec.edu.espe.dpexsystem.util;
+package ec.edu.espe.dpexsystem.utils;
 
 import java.util.Scanner;
 

@@ -13,10 +13,10 @@ import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage;
 import ec.edu.espe.dpexsystem.model.User;
-import ec.edu.espe.dpexsystem.util.JsonHandler;
-import ec.edu.espe.dpexsystem.util.LoginMenu;
-import ec.edu.espe.dpexsystem.util.MainMenu;
-import ec.edu.espe.dpexsystem.util.MessageBox;
+import ec.edu.espe.dpexsystem.utils.JsonHandler;
+import ec.edu.espe.dpexsystem.utils.LoginMenu;
+import ec.edu.espe.dpexsystem.utils.MainMenu;
+import ec.edu.espe.dpexsystem.utils.MessageBox;
 
 /**
  *

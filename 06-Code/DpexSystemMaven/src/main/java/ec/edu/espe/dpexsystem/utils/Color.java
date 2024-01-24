@@ -1,4 +1,4 @@
-package ec.edu.espe.dpexsystem.util;
+package ec.edu.espe.dpexsystem.utils;
 
 public class Color {
     public static final String RESET = "\u001B[0m";

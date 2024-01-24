@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import com.google.gson.reflect.TypeToken;
 
-import ec.edu.espe.dpexsystem.util.JsonHandler;
-import ec.edu.espe.dpexsystem.util.MessageBox;
+import ec.edu.espe.dpexsystem.utils.JsonHandler;
+import ec.edu.espe.dpexsystem.utils.MessageBox;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
 
 /**
