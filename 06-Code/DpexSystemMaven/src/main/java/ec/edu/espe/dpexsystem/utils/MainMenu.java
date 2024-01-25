@@ -8,8 +8,8 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import ec.edu.espe.dpexsystem.model.Constituency;
+
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
 import ec.edu.espe.dpexsystem.model.ElectoralPackage;
@@ -74,7 +74,6 @@ public class MainMenu {
     
     private static void registerElectoralPackage() {
         Country country;
-        Constituency constituency;
 
         while (true) {
             final String countryName = UserInput.getString("Enter the country name: ");
@@ -83,11 +82,6 @@ public class MainMenu {
                 System.out.println("The country you entered doesn't exist");
                 continue;
             }
-
-            String constituencyName = UserInput.getString("Enter the name of the constituency: ");
-            constituency = new Constituency();
-            constituency.setName(constituencyName);
-            constituency.addCountry(country);
 
             int ecuadorianPopulation = country.getEcuadorianPopulation();
             ElectoralPackage.PackageType packageType;
@@ -102,13 +96,12 @@ public class MainMenu {
             float weight = UserInput.getFloat("Enter the package's weight: ");
             ElectoralPackage electoralPackage = new ElectoralPackage();
             electoralPackage.setCountry(country);
-            electoralPackage.setConstituency(constituency);
             electoralPackage.setPackageType(packageType);
             electoralPackage.setWeight(weight);
 
             DPEXSystem.addElectoralPackage(electoralPackage);
 
-            System.out.println("Your package has been successfully registered. Package ID: " + electoralPackage.getPackageId());
+            System.out.println("Your package has been successfully registered. \nPackage ID: " + electoralPackage.getPackageId());
 
             break;
         }
@@ -134,7 +127,7 @@ public class MainMenu {
 
             switch (choice) {
                 case 1:
-                    modifyCountry(selectedPackage);
+                    modifyCountryOfThePackage(selectedPackage);
                     break;
                 case 2:
                     modifyWeight(selectedPackage);
@@ -159,7 +152,7 @@ public class MainMenu {
         return null;
     }
 
-    private static void modifyCountry(ElectoralPackage selectedPackage) {
+    private static void modifyCountryOfThePackage(ElectoralPackage selectedPackage) {
         String newCountryName = UserInput.getString("Enter the new country for the package: ");
         Country newCountry = DPEXSystem.getCountry(newCountryName);
 
@@ -215,13 +208,50 @@ public class MainMenu {
             break;
         }
         int ecuadorianPopulation = UserInput.getInt("Enter the Ecuadorian population of the country: ");
-
+        
+        int constituencyChoice = displayConstituencyOptions();
+        String constituencyName = getConstituencyNameByChoice(constituencyChoice);
         String consularOfficeName = UserInput.getString("Enter the country's consular office name: ");
         String consularOfficeAddr = UserInput.getString("Enter the consular office's address: ");
         ConsularOffice consularOffice = new ConsularOffice(consularOfficeName, consularOfficeAddr);
 
-        DPEXSystem.addCountry(new Country(countryName, ecuadorianPopulation, consularOffice));
+        Country country = new Country(countryName, ecuadorianPopulation, consularOffice);
+
+        Constituency constituency = DPEXSystem.getConstituency(constituencyName);
+        if (constituency == null) {
+            constituency = new Constituency();
+            constituency.setName(constituencyName);
+            DPEXSystem.addConstituency(constituency);
+        }
+        constituency.addCountry(country);
+        DPEXSystem.addCountry(country);
         MessageBox.info("Country registered successfully");
+    }
+    
+    private static String getConstituencyNameByChoice(int choice) {
+        switch (choice) {
+            case 1:
+                return "Europa, Asia y Oceania";
+            case 2:
+                return "Estados Unidos Y Canada";
+            case 3:
+                return "America Latina, El Caribe y Africa";
+            default:
+                return "Invalid option. Please choose a valid option.";
+        }
+    }
+    
+    private static int displayConstituencyOptions() {
+        final List<String> menuConstituencyOptions = Arrays.asList(
+            "Europa, Asia y Oceania",
+            "Estados Unidos Y Canada",
+            "America Latina, El Caribe y Africa"
+        );
+
+        final ConsoleMenu menu = new ConsoleMenu("Select Constituency", menuConstituencyOptions);
+        menu.displayMenu();
+
+        return menu.getUserChoice();
     }
 
     private static void printAllCountries() {
@@ -234,7 +264,7 @@ public class MainMenu {
         // TO DO
     }
 
-     public static void saveToJson(ArrayList<ElectoralPackage> packages) {
+    public static void saveToJson(ArrayList<ElectoralPackage> packages) {
         Gson gson =  new GsonBuilder().setPrettyPrinting().create();
 
         try (FileWriter writer = new FileWriter("packages.json")) {
@@ -257,7 +287,6 @@ public class MainMenu {
                 writer.write(String.format("%d,%s,%s,%s,%.2f,%s\n",
                         electoralPackage.getPackageId(),
                         electoralPackage.getCountry().getName(),
-                        electoralPackage.getConstituency().getName(),
                         electoralPackage.getPackageType(),
                         electoralPackage.getWeight(),
                         electoralPackage.getStatus()));

@@ -11,6 +11,24 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>ec.edu.espe.dpexsystem.view.DPEXSystem</exec.mainClass>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>ec.edu.espe.dpexsystem.view.DPEXSystem</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
         <groupId>com.google.code.gson </groupId>

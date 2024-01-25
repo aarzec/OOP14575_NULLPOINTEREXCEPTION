@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.dpexsystem.model.Constituency;
 
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
 import ec.edu.espe.dpexsystem.model.Country;
@@ -30,6 +31,8 @@ public class DPEXSystem {
     private static final String COUNTRIES_FILE = "./countries.json";
     private static ArrayList<ElectoralPackage> allPackages = new ArrayList<>();
     private static final String PACKAGES_FILE = "./packages.json";
+    private static ArrayList<Constituency> allConstituencies = new ArrayList<>();
+    private static final String CONSTITUENCIES_FILE = "./constituencies.json";
 
     private static User currentUser;
 
@@ -37,6 +40,7 @@ public class DPEXSystem {
 
         initFolderStructure();
         loadCountries();
+        loadConstituencies();
         users = User.loadFromFile();
         currentUser = LoginMenu.showLoginPrompt();
         MainMenu.showMainMenu(currentUser);
@@ -103,10 +107,6 @@ public class DPEXSystem {
         return null;
     }
 
-    public static User getCurrentUser() {
-        return currentUser;
-    }
-
     public static ArrayList<ElectoralPackage> getAllPackages() {
         return allPackages;
     }
@@ -122,4 +122,45 @@ public class DPEXSystem {
             MessageBox.error("An error occured while persisting packages data");
         }
     }
+    
+    public static void addConstituency(Constituency constituency) {
+        allConstituencies.add(constituency);
+        saveConstituencies();
+    }
+
+    public static Constituency getConstituency(String constituencyName) {
+        for (Constituency constituency : allConstituencies) {
+            if (constituency.getName().equalsIgnoreCase(constituencyName)) {
+                return constituency;
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<Constituency> getAllConstituencies() {
+        return allConstituencies;
+    }
+
+    public static void saveConstituencies() {
+        try {
+            JsonHandler.writeToJson(CONSTITUENCIES_FILE, allConstituencies);
+        } catch (IOException e) {
+            MessageBox.error("An error occurred while persisting constituencies data");
+        }
+    }
+    
+    private static void loadConstituencies() {
+        Type listType = new TypeToken<ArrayList<Constituency>>() {}.getType();
+        ArrayList<Constituency> data = new ArrayList<>();
+        try {
+            data = JsonHandler.readFromJson(CONSTITUENCIES_FILE, listType);
+        }catch (IOException e) {
+        }
+        allConstituencies = data;
+    }
+    
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
 }

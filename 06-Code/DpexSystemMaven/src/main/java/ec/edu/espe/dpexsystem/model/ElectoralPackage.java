@@ -20,8 +20,6 @@ public class ElectoralPackage {
 
     private int packageId;
     private Country country;
-    private ConsularOffice consularOffice;
-    private Constituency constituency;
     private PackageType packageType;
     private float weight;
     private PackageStatus status;
@@ -54,22 +52,6 @@ public class ElectoralPackage {
 
     public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public ConsularOffice getConsularOffice() {
-        return consularOffice;
-    }
-
-    public void setConsularOffice(ConsularOffice consularOffice) {
-        this.consularOffice = consularOffice;
-    }
-
-    public Constituency getConstituency() {
-        return constituency;
-    }
-
-    public void setConstituency(Constituency constituency) {
-        this.constituency = constituency;
     }
 
     public PackageType getPackageType() {
