@@ -11,6 +11,10 @@ public class Constituency {
 
     private String name;
     private ArrayList<Country> countries;
+    
+    public Constituency() {
+        this.countries = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
