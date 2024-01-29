@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ec.edu.espe.dpexsystem.controller.CountryConectionMongo;
 import ec.edu.espe.dpexsystem.model.Constituency;
 
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
@@ -47,7 +48,8 @@ public class MainMenu {
                     printAllCountries();
                     break;
                 case 4:
-                    registerCountry();
+                    Country country = getCountryDetails();
+                    CountryConectionMongo.registerCountry(country);
                     break;
                 case 5:
                     createNewRole();
@@ -197,7 +199,7 @@ public class MainMenu {
         System.out.println("Status modified successfully.");
     }
     
-    private static void registerCountry() {
+    private static Country getCountryDetails() {
         String countryName;
         while (true) {
             countryName = UserInput.getString("Enter the name of the country: ");
@@ -211,9 +213,9 @@ public class MainMenu {
         
         int constituencyChoice = displayConstituencyOptions();
         String constituencyName = getConstituencyNameByChoice(constituencyChoice);
-        String consularOfficeName = UserInput.getString("Enter the country's consular office name: ");
-        String consularOfficeAddr = UserInput.getString("Enter the consular office's address: ");
-        ConsularOffice consularOffice = new ConsularOffice(consularOfficeName, consularOfficeAddr);
+        String consularOfficeName = UserInput.getString("Enter the consular office's name: ");
+        String consularOfficeAddress = UserInput.getString("Enter the consular office's address: ");
+        ConsularOffice consularOffice = new ConsularOffice(consularOfficeName, consularOfficeAddress);
 
         Country country = new Country(countryName, ecuadorianPopulation, consularOffice);
 
@@ -226,6 +228,7 @@ public class MainMenu {
         constituency.addCountry(country);
         DPEXSystem.addCountry(country);
         MessageBox.info("Country registered successfully");
+        return country;
     }
     
     private static String getConstituencyNameByChoice(int choice) {
