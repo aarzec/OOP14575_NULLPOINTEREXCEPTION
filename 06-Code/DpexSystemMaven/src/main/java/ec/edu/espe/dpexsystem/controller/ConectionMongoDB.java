@@ -14,21 +14,21 @@ import org.bson.Document;
  *
  * @author Luis Sagnay
  */
-public class CountryConectionMongo {
+public class ConectionMongoDB {
     private static final String DATA_BASE = "DPEXSystemDB";
 
     private static MongoClient mongoClient;
 
-    public static MongoClient conectToMongoDB() {
+    public static MongoClient conectToMongoDB(String URI) {
         if (mongoClient == null) {
-            mongoClient = MongoClients.create("mongodb+srv://luis:<password>@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority");
+            mongoClient = MongoClients.create(URI);
             System.out.println("Conected with MongoBD");
         }
         return mongoClient;
     }
 
-    public static List<Country> listCountries() {
-        conectToMongoDB();
+    public static List<Country> listCountries(String URI) {
+        conectToMongoDB(URI);
         MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
         MongoCollection<Document> collection = database.getCollection("Country");
 
@@ -42,8 +42,8 @@ public class CountryConectionMongo {
 
     }
 
-    public static void registerCountry(Country country) {
-        conectToMongoDB();
+    public static void registerCountry(Country country, String URI) {
+        conectToMongoDB(URI);
         MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
         MongoCollection<Document> collection = database.getCollection("Country");
         Gson gson = new Gson();
@@ -51,8 +51,8 @@ public class CountryConectionMongo {
 
     }
 
-    public static void editCountry(Country country) {
-        conectToMongoDB();
+    public static void editCountry(Country country, String URI) {
+        conectToMongoDB(URI);
         MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
         MongoCollection<Document> collection = database.getCollection("Country");
         Document filter = new Document("Country Name", country.getName());
@@ -63,8 +63,8 @@ public class CountryConectionMongo {
         collection.updateOne(filter, updateItem);
     }
     
-    public static void deleteCountry(String countryName ){
-        conectToMongoDB();
+    public static void deleteCountry(String countryName, String URI){
+        conectToMongoDB(URI);
         MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
         MongoCollection<Document> collection = database.getCollection("Country");
         Document filter = new Document("Country Name", countryName);

@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ec.edu.espe.dpexsystem.controller.CountryConectionMongo;
+import ec.edu.espe.dpexsystem.controller.ConectionMongoDB;
 import ec.edu.espe.dpexsystem.model.Constituency;
 
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
@@ -48,8 +48,9 @@ public class MainMenu {
                     printAllCountries();
                     break;
                 case 4:
+                    String URI = "mongodb+srv://luis:<password>@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority";
                     Country country = getCountryDetails();
-                    CountryConectionMongo.registerCountry(country);
+                    ConectionMongoDB.registerCountry(country, URI);
                     break;
                 case 5:
                     createNewRole();
