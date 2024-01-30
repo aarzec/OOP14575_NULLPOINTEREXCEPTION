@@ -97,14 +97,24 @@ public class MainMenu {
             }
 
             float weight = UserInput.getFloat("Enter the package's weight: ");
+            
             ElectoralPackage electoralPackage = new ElectoralPackage();
             electoralPackage.setCountry(country);
             electoralPackage.setPackageType(packageType);
             electoralPackage.setWeight(weight);
 
             DPEXSystem.addElectoralPackage(electoralPackage);
+            
+            int numberOfPackages = ecuadorianPopulation / 1000;
+            for (int i = 1; i < numberOfPackages; i++) {
+                ElectoralPackage additionalPackage = new ElectoralPackage();
+                additionalPackage.setCountry(country);
+                additionalPackage.setPackageType(packageType);
+                additionalPackage.setWeight(weight);
+                DPEXSystem.addElectoralPackage(additionalPackage);
+            }
 
-            System.out.println("Your package has been successfully registered. \nPackage ID: " + electoralPackage.getPackageId());
+            System.out.println("Your package have been successfully registered");
 
             break;
         }

@@ -1,5 +1,7 @@
 package ec.edu.espe.dpexsystem.model;
 
+import java.util.Random;
+
 /**
  *
  * @author NullPointerException
@@ -23,10 +25,9 @@ public class ElectoralPackage {
     private PackageType packageType;
     private float weight;
     private PackageStatus status;
-    public static int currentPackageId = 0;
 
     public ElectoralPackage() {
-        this.packageId = ++currentPackageId;
+        this.packageId = generateRandomPackageId();
         this.status = PackageStatus.PENDING;
     }
 
@@ -36,6 +37,11 @@ public class ElectoralPackage {
 
     public void updateShippingStatus(String shippingStatus) {
 
+    }
+    
+    private int generateRandomPackageId() {
+        Random random = new Random();
+        return 10000 + random.nextInt(90000); 
     }
 
     public int getPackageId() {
