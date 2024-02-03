@@ -28,7 +28,7 @@ public class MainMenu {
 
     private static void showAdminMenu() {
         final List<String> menuOptions = Arrays.asList("Register a new electoral package",
-                "Modify a registered package", "List all countries", "Register a new country", "Assign new roles",
+                "Modify a registered package", "List all countries", "Register a new Country", "Assign new roles",
                 "Export electoral packages data as json","Export electoral packages data as csv", "Logout", "Quit");
         final ConsoleMenu menu = new ConsoleMenu("Main Menu - Administrator", menuOptions);
 
@@ -48,9 +48,8 @@ public class MainMenu {
                     printAllCountries();
                     break;
                 case 4:
-                    String URI = "mongodb+srv://luis:<password>@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority";
-                    Country country = getCountryDetails();
-                    ConectionMongoDB.registerCountry(country, URI);
+                    Country country = registerCountry();
+                    ConectionMongoDB.registerCountry(country);
                     break;
                 case 5:
                     createNewRole();
@@ -210,7 +209,7 @@ public class MainMenu {
         System.out.println("Status modified successfully.");
     }
     
-    private static Country getCountryDetails() {
+    public static Country registerCountry() {
         String countryName;
         while (true) {
             countryName = UserInput.getString("Enter the name of the country: ");
@@ -242,6 +241,30 @@ public class MainMenu {
         return country;
     }
     
+    public static Country getCountryDetails() {
+        String countryName = UserInput.getString("Enter the name of the country: ");
+        int ecuadorianPopulation = UserInput.getInt("Enter the Ecuadorian population of the country: ");
+
+        int constituencyChoice = displayConstituencyOptions();
+        String constituencyName = getConstituencyNameByChoice(constituencyChoice);
+        String consularOfficeName = UserInput.getString("Enter the consular office's name: ");
+        String consularOfficeAddress = UserInput.getString("Enter the consular office's address: ");
+        ConsularOffice consularOffice = new ConsularOffice(consularOfficeName, consularOfficeAddress);
+
+        Country country = new Country(countryName, ecuadorianPopulation, consularOffice);
+
+        Constituency constituency = DPEXSystem.getConstituency(constituencyName);
+        if (constituency == null) {
+            constituency = new Constituency();
+            constituency.setName(constituencyName);
+            DPEXSystem.addConstituency(constituency);
+        }
+        constituency.addCountry(country);
+        DPEXSystem.addCountry(country);
+        MessageBox.info("Country details entered successfully");
+        return country;
+    }
+
     private static String getConstituencyNameByChoice(int choice) {
         switch (choice) {
             case 1:

@@ -15,6 +15,7 @@ import org.bson.Document;
  * @author Luis Sagnay
  */
 public class ConectionMongoDB {
+    private static final String MongoURI = "mongodb+srv://luis:luis2@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority";
     private static final String DATA_BASE = "DPEXSystemDB";
 
     private static MongoClient mongoClient;
@@ -27,8 +28,8 @@ public class ConectionMongoDB {
         return mongoClient;
     }
 
-    public static List<Country> listCountries(String URI) {
-        conectToMongoDB(URI);
+    public static List<Country> listCountries() {
+        conectToMongoDB(MongoURI);
         MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
         MongoCollection<Document> collection = database.getCollection("Country");
 
@@ -42,8 +43,8 @@ public class ConectionMongoDB {
 
     }
 
-    public static void registerCountry(Country country, String URI) {
-        conectToMongoDB(URI);
+    public static void registerCountry(Country country) {
+        conectToMongoDB(MongoURI);
         MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
         MongoCollection<Document> collection = database.getCollection("Country");
         Gson gson = new Gson();
@@ -51,8 +52,8 @@ public class ConectionMongoDB {
 
     }
 
-    public static void editCountry(Country country, String URI) {
-        conectToMongoDB(URI);
+    public static void editCountry(Country country) {
+        conectToMongoDB(MongoURI);
         MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
         MongoCollection<Document> collection = database.getCollection("Country");
         Document filter = new Document("Country Name", country.getName());
@@ -63,8 +64,8 @@ public class ConectionMongoDB {
         collection.updateOne(filter, updateItem);
     }
     
-    public static void deleteCountry(String countryName, String URI){
-        conectToMongoDB(URI);
+    public static void deleteCountry(String countryName){
+        conectToMongoDB(MongoURI);
         MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
         MongoCollection<Document> collection = database.getCollection("Country");
         Document filter = new Document("Country Name", countryName);
