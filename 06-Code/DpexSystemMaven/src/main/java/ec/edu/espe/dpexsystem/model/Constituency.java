@@ -1,7 +1,6 @@
 package ec.edu.espe.dpexsystem.model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -10,10 +9,10 @@ import java.util.Scanner;
 public class Constituency {
 
     private String name;
-    private ArrayList<Country> countries;
-    
+    private ArrayList<String> countryNames;
+
     public Constituency() {
-        this.countries = new ArrayList<>();
+        this.countryNames = new ArrayList<>();
     }
 
     public String getName() {
@@ -24,8 +23,11 @@ public class Constituency {
         this.name = name;
     }
 
-    public void addCountry(Country country) {
-        this.countries.add(country);
+    public void addCountry(String countryName) {
+        this.countryNames.add(countryName);
     }
 
+    public ArrayList<String> getCountryNames() {
+        return countryNames;
+    }
 }

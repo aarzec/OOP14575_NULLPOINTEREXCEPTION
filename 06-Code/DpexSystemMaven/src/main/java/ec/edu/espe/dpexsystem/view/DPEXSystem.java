@@ -149,6 +149,15 @@ public class DPEXSystem {
         }
     }
     
+    public static void addCountryToConstituency(String countryName, String constituencyName) {
+        Constituency constituency = getConstituency(constituencyName);
+
+        if (constituency != null) {
+            constituency.addCountry(countryName);
+            saveConstituencies();
+        }
+    }
+
     private static void loadConstituencies() {
         Type listType = new TypeToken<ArrayList<Constituency>>() {}.getType();
         ArrayList<Constituency> data = new ArrayList<>();

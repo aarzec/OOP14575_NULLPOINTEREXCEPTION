@@ -1,1 +1,128 @@
-[]
+[
+  {
+    "packageId": 78256,
+    "country": {
+      "name": "Portugal",
+      "ecuadorianPopulation": 1500,
+      "consularOffice": {
+        "officeName": "Lisboa",
+        "address": "Lisboa"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 81756,
+    "country": {
+      "name": "Italy",
+      "ecuadorianPopulation": 8000,
+      "consularOffice": {
+        "officeName": "Roma",
+        "address": "Roma"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 68276,
+    "country": {
+      "name": "Italy",
+      "ecuadorianPopulation": 8000,
+      "consularOffice": {
+        "officeName": "Roma",
+        "address": "Roma"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 42482,
+    "country": {
+      "name": "Italy",
+      "ecuadorianPopulation": 8000,
+      "consularOffice": {
+        "officeName": "Roma",
+        "address": "Roma"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 46626,
+    "country": {
+      "name": "Italy",
+      "ecuadorianPopulation": 8000,
+      "consularOffice": {
+        "officeName": "Roma",
+        "address": "Roma"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 47990,
+    "country": {
+      "name": "Italy",
+      "ecuadorianPopulation": 8000,
+      "consularOffice": {
+        "officeName": "Roma",
+        "address": "Roma"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 72680,
+    "country": {
+      "name": "Italy",
+      "ecuadorianPopulation": 8000,
+      "consularOffice": {
+        "officeName": "Roma",
+        "address": "Roma"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 25517,
+    "country": {
+      "name": "Italy",
+      "ecuadorianPopulation": 8000,
+      "consularOffice": {
+        "officeName": "Roma",
+        "address": "Roma"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  },
+  {
+    "packageId": 44635,
+    "country": {
+      "name": "Italy",
+      "ecuadorianPopulation": 8000,
+      "consularOffice": {
+        "officeName": "Roma",
+        "address": "Roma"
+      }
+    },
+    "packageType": "GENERO",
+    "weight": 20.0,
+    "status": "PENDING"
+  }
+]

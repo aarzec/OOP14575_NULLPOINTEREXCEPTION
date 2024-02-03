@@ -19,6 +19,9 @@ import ec.edu.espe.dpexsystem.model.User.UserType;
 import ec.edu.espe.dpexsystem.view.DPEXSystem;
 
 public class MainMenu {
+    public static String URI = "mongodb+srv://luis:luis2@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority";
+    public static String DB = "DPEXSystemDB";
+    
      public static void showMainMenu(User loggedUser) {
         if (loggedUser.getType() == UserType.ADMINISTRATOR) {
             showAdminMenu();
@@ -31,9 +34,6 @@ public class MainMenu {
                 "Modify a registered package", "List all countries", "Register a new Country", "Assign new roles",
                 "Export electoral packages data as json","Export electoral packages data as csv", "Logout", "Quit");
         final ConsoleMenu menu = new ConsoleMenu("Main Menu - Administrator", menuOptions);
-        
-        String URI = "mongodb+srv://luis:luis2@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority";
-        String DB = "DPEXSystemDB";
         
         ConsoleUtil.clearConsole();
         while (true) {
@@ -78,7 +78,7 @@ public class MainMenu {
         }
     }
     
-    private static void registerElectoralPackage() {
+    public static void registerElectoralPackage() {
         Country country;
 
         while (true) {
@@ -115,9 +115,10 @@ public class MainMenu {
                 additionalPackage.setPackageType(packageType);
                 additionalPackage.setWeight(weight);
                 DPEXSystem.addElectoralPackage(additionalPackage);
+                ConectionMongoDB conectionElectoralPackageDB = new ConectionMongoDB(URI, DB);
+                conectionElectoralPackageDB.create(electoralPackage, "Electoral Package");
+                System.out.println("Your package have been successfully registered");
             }
-
-            System.out.println("Your package have been successfully registered");
 
             break;
         }
@@ -223,8 +224,9 @@ public class MainMenu {
             }
             break;
         }
+
         int ecuadorianPopulation = UserInput.getInt("Enter the Ecuadorian population of the country: ");
-        
+
         int constituencyChoice = displayConstituencyOptions();
         String constituencyName = getConstituencyNameByChoice(constituencyChoice);
         String consularOfficeName = UserInput.getString("Enter the consular office's name: ");
@@ -239,36 +241,16 @@ public class MainMenu {
             constituency.setName(constituencyName);
             DPEXSystem.addConstituency(constituency);
         }
-        constituency.addCountry(country);
+        DPEXSystem.addCountryToConstituency(country.getName(), constituency.getName());
+
         DPEXSystem.addCountry(country);
+        DPEXSystem.saveCountries();
+        DPEXSystem.saveConstituencies();
         MessageBox.info("Country registered successfully");
+
         return country;
     }
     
-    public static Country getCountryDetails() {
-        String countryName = UserInput.getString("Enter the name of the country: ");
-        int ecuadorianPopulation = UserInput.getInt("Enter the Ecuadorian population of the country: ");
-
-        int constituencyChoice = displayConstituencyOptions();
-        String constituencyName = getConstituencyNameByChoice(constituencyChoice);
-        String consularOfficeName = UserInput.getString("Enter the consular office's name: ");
-        String consularOfficeAddress = UserInput.getString("Enter the consular office's address: ");
-        ConsularOffice consularOffice = new ConsularOffice(consularOfficeName, consularOfficeAddress);
-
-        Country country = new Country(countryName, ecuadorianPopulation, consularOffice);
-
-        Constituency constituency = DPEXSystem.getConstituency(constituencyName);
-        if (constituency == null) {
-            constituency = new Constituency();
-            constituency.setName(constituencyName);
-            DPEXSystem.addConstituency(constituency);
-        }
-        constituency.addCountry(country);
-        DPEXSystem.addCountry(country);
-        MessageBox.info("Country details entered successfully");
-        return country;
-    }
-
     private static String getConstituencyNameByChoice(int choice) {
         switch (choice) {
             case 1:
