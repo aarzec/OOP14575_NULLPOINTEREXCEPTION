@@ -52,7 +52,7 @@ public class User {
         ArrayList<User> data = new ArrayList<>();
 
         try {
-            data = JsonHandler.readFromJson(SAVE_FILE, listType);
+            data = JsonHandler.readFromJson(getSAVE_FILE(), listType);
         } catch (IOException e) {
         }
 
@@ -61,7 +61,7 @@ public class User {
 
     public static void saveToFile(ArrayList<User> users) {
         try {
-            JsonHandler.writeToJson(SAVE_FILE, users);
+            JsonHandler.writeToJson(getSAVE_FILE(), users);
         } catch (IOException e) {
             MessageBox.error("An error occured while persisting users");
         }
@@ -77,7 +77,7 @@ public class User {
 
     private String decryptPassword() {
         StringBuilder decrypted = new StringBuilder();
-        for (char c : password.toCharArray()) {
+        for (char c : getPassword().toCharArray()) {
             decrypted.append((char) (c - 1));
         }
         return decrypted.toString();
@@ -106,4 +106,69 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    /**
+     * @return the id
+     */
+    public UUID getId() {
+        return id;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the SAVE_FILE
+     */
+    public static String getSAVE_FILE() {
+        return SAVE_FILE;
+    }
+    
+    
 }

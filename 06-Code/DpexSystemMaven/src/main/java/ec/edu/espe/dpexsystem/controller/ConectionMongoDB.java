@@ -5,70 +5,58 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import ec.edu.espe.dpexsystem.model.Country;
-import java.util.ArrayList;
-import java.util.List;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
 /**
  *
  * @author Luis Sagnay
  */
-public class ConectionMongoDB {
-    private static final String MongoURI = "mongodb+srv://luis:luis2@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority";
-    private static final String DATA_BASE = "DPEXSystemDB";
-
+public class ConectionMongoDB extends DBManager{
     private static MongoClient mongoClient;
 
-    public static MongoClient conectToMongoDB(String URI) {
+    public ConectionMongoDB(String URI, String DB) {
+        DBManager.setDataBase(DB);
+        DBManager.setURI(URI);
+        connect(DBManager.getURI());
+    }
+
+    @Override
+    public final void connect(String URI) {
         if (mongoClient == null) {
-            mongoClient = MongoClients.create(URI);
-            System.out.println("Conected with MongoBD");
+            mongoClient = MongoClients.create(DBManager.getURI());
         }
-        return mongoClient;
     }
 
-    public static List<Country> listCountries() {
-        conectToMongoDB(MongoURI);
-        MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
-        MongoCollection<Document> collection = database.getCollection("Country");
-
-        List<Document> fullTable = collection.find().into(new ArrayList<>());
-        List<Country> customersFromDataBase = new ArrayList<>();
-
-        for (Document doc : fullTable) {
-            customersFromDataBase.add(new Gson().fromJson(doc.toJson(), Country.class));
-        }
-        return customersFromDataBase;
-
-    }
-
-    public static void registerCountry(Country country) {
-        conectToMongoDB(MongoURI);
-        MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
-        MongoCollection<Document> collection = database.getCollection("Country");
+    @Override
+    public void create(Object data, String table) {
+        MongoDatabase database = mongoClient.getDatabase(DataBase);
+        MongoCollection<Document> collection = database.getCollection(table);
         Gson gson = new Gson();
-        collection.insertOne(Document.parse(gson.toJson(country)));
-
+        collection.insertOne(Document.parse(gson.toJson(data)));
     }
 
-    public static void editCountry(Country country) {
-        conectToMongoDB(MongoURI);
-        MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
-        MongoCollection<Document> collection = database.getCollection("Country");
-        Document filter = new Document("Country Name", country.getName());
-        Document updateItem = new Document("$set", new Document()
-        .append("Ecuadorian Population", country.getEcuadorianPopulation())
-        .append("Consular Office", country.getConsularOffice()));
-        
-        collection.updateOne(filter, updateItem);
+     @Override
+    public void update(String table, Object query, Object newData) {
+        MongoDatabase database = mongoClient.getDatabase(DataBase);
+        MongoCollection<Document> collection = database.getCollection(table);
+
+        Gson gson = new Gson();
+        Document filterDocument = Document.parse(gson.toJson(query));
+        Document updateDocument = Document.parse(gson.toJson(newData));
+
+        UpdateResult result = collection.updateOne(filterDocument, new Document("$set", updateDocument));
     }
-    
-    public static void deleteCountry(String countryName){
-        conectToMongoDB(MongoURI);
-        MongoDatabase database = mongoClient.getDatabase(DATA_BASE);
-        MongoCollection<Document> collection = database.getCollection("Country");
-        Document filter = new Document("Country Name", countryName);
-        collection.deleteOne(filter);
+
+    @Override
+    public void delete(String table, Object query) {
+        MongoDatabase database = mongoClient.getDatabase(DataBase);
+        MongoCollection<Document> collection = database.getCollection(table);
+
+        Gson gson = new Gson();
+        Document filterDocument = Document.parse(gson.toJson(query));
+
+        DeleteResult result = collection.deleteOne(filterDocument);
     }
 }

@@ -31,7 +31,10 @@ public class MainMenu {
                 "Modify a registered package", "List all countries", "Register a new Country", "Assign new roles",
                 "Export electoral packages data as json","Export electoral packages data as csv", "Logout", "Quit");
         final ConsoleMenu menu = new ConsoleMenu("Main Menu - Administrator", menuOptions);
-
+        
+        String URI = "mongodb+srv://luis:luis2@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority";
+        String DB = "DPEXSystemDB";
+        
         ConsoleUtil.clearConsole();
         while (true) {
             menu.displayMenu();
@@ -48,8 +51,9 @@ public class MainMenu {
                     printAllCountries();
                     break;
                 case 4:
+                    ConectionMongoDB conectionMongoDB = new ConectionMongoDB(URI, DB);
                     Country country = registerCountry();
-                    ConectionMongoDB.registerCountry(country);
+                    conectionMongoDB.create(country, "Country");
                     break;
                 case 5:
                     createNewRole();
