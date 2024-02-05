@@ -28,6 +28,7 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuDpex = new javax.swing.JMenu();
         itmLogout = new javax.swing.JMenuItem();
@@ -51,6 +52,9 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("BIENVENIDO");
+
         mnuDpex.setText("DPEX System");
 
         itmLogout.setText("Logout");
@@ -67,6 +71,11 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         jMenuBar1.add(mnuDpex);
 
         mnuElectoralPackage.setText("Electoral Package");
+        mnuElectoralPackage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuElectoralPackageActionPerformed(evt);
+            }
+        });
 
         itmRegisterPackage.setText("Register");
         itmRegisterPackage.addActionListener(new java.awt.event.ActionListener() {
@@ -109,11 +118,17 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 403, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addContainerGap(273, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,6 +156,10 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_itmLogoutActionPerformed
+
+    private void mnuElectoralPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuElectoralPackageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuElectoralPackageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,6 +204,7 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmSentPackage;
     private javax.swing.JMenuItem itmViewCountries;
     private javax.swing.JMenuItem itmViewPackage;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

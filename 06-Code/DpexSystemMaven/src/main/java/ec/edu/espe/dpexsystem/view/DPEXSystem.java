@@ -41,10 +41,12 @@ public class DPEXSystem {
         initFolderStructure();
         loadCountries();
         loadConstituencies();
-        users = User.loadFromFile();
-        currentUser = LoginMenu.showLoginPrompt();
-        MainMenu.showMainMenu(currentUser);
+       // users = User.loadFromFile();
+       // currentUser = LoginMenu.showLoginPrompt();
+        MainMenu.showMainMenu(//currentUser
+        );
     }
+    
 
     public static void addCountry(Country country) {
         allCountries.add(country);
@@ -57,6 +59,15 @@ public class DPEXSystem {
                 return country;
             }
         }
+        return null;
+    }
+    
+    // para ocuparlo en el combobox. 
+    
+    public static Country getCountry() {
+        for (Country country : allCountries) {
+                return country;
+            }
         return null;
     }
 

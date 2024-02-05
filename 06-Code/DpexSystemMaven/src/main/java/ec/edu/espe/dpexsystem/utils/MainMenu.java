@@ -22,10 +22,11 @@ public class MainMenu {
     public static String URI = "mongodb+srv://luis:luis2@cluster0.h5n9yna.mongodb.net/?retryWrites=true&w=majority";
     public static String DB = "DPEXSystemDB";
     
-     public static void showMainMenu(User loggedUser) {
-        if (loggedUser.getType() == UserType.ADMINISTRATOR) {
+     public static void showMainMenu(//User loggedUser
+     ) {
+        //if (loggedUser.getType() == UserType.ADMINISTRATOR) {
             showAdminMenu();
-        }
+       // }
     }
     
 
@@ -119,7 +120,6 @@ public class MainMenu {
                 conectionElectoralPackageDB.create(electoralPackage, "Electoral Package");
                 System.out.println("Your package have been successfully registered");
             }
-
             break;
         }
     }
