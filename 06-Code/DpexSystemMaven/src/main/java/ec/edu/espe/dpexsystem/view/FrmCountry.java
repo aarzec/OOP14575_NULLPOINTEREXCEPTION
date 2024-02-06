@@ -1,11 +1,25 @@
 package ec.edu.espe.dpexsystem.view;
 
+import java.awt.Dialog.ModalityType;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+
+import ec.edu.espe.dpexsystem.controller.ConectionMongoDB;
+import ec.edu.espe.dpexsystem.controller.DBConnectionController;
+import ec.edu.espe.dpexsystem.model.ConsularOffice;
+import ec.edu.espe.dpexsystem.model.Country;
+import ec.edu.espe.dpexsystem.model.District;
+import ec.edu.espe.dpexsystem.utils.Settings;
+
 /**
  *
  * @author Luis Sagnay
  */
 public class FrmCountry extends javax.swing.JFrame {
-
+    private final FrmCountry instance = this;
     /**
      * Creates new form FrmCountry
      */
@@ -34,11 +48,11 @@ public class FrmCountry extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        cmbDistrict = new javax.swing.JComboBox<>();
+        txtName = new javax.swing.JTextField();
+        txtPopulation = new javax.swing.JTextField();
+        txtOfficeNamr = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,7 +126,7 @@ public class FrmCountry extends javax.swing.JFrame {
 
         jLabel6.setText("Circunscripcion:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Europa, Asia, Oceania", "Estados Unidos, Canada", "America Latina, El Caribe, África" }));
+        cmbDistrict.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Europa, Asia, Oceania", "Estados Unidos, Canada", "America Latina, El Caribe, África" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -129,11 +143,11 @@ public class FrmCountry extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4))
+                    .addComponent(cmbDistrict, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtName)
+                    .addComponent(txtPopulation)
+                    .addComponent(txtOfficeNamr)
+                    .addComponent(txtAddress))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -142,23 +156,23 @@ public class FrmCountry extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPopulation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtOfficeNamr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDistrict, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
@@ -195,9 +209,81 @@ public class FrmCountry extends javax.swing.JFrame {
         frmDPEXSystemMenu.setVisible(true);
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    private void insertCountryAsync(Country country) {
+        final JDialog modalDialog = new JDialog(instance, "Por favor espere...", ModalityType.DOCUMENT_MODAL);
+        modalDialog.setSize(200, 100);
+        modalDialog.setLocationRelativeTo(rootPane);
+        modalDialog.add(new javax.swing.JLabel("Por favor espere..."));
+        SwingUtilities.invokeLater(() -> {
+            modalDialog.setVisible(true);
+        });
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() {
+                ConectionMongoDB conectionMongoDB = DBConnectionController.getConection();
+                conectionMongoDB.create(Settings.CountriesCollection, country);
+                JOptionPane.showMessageDialog(rootPane, "País creado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                clearForm();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    modalDialog.dispose();
+                });
+            }
+        };
+
+        worker.execute();
+    }
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
+        if (!checkForm()) {
+            return;
+        }
+        final String name = txtName.getText();
+        final int population = Integer.parseInt(txtPopulation.getText());
+        final String consularOfficeName = txtOfficeNamr.getText();
+        final String consularOfficeAddress = txtAddress.getText();
+        final String consularOfficeDistrictStr = cmbDistrict.getSelectedItem().toString();
+        District consularOfficeDistrict;
+        switch (consularOfficeDistrictStr) {
+            case "Europa, Asia, Oceania": {
+                consularOfficeDistrict = District.EUROPA_ASIA_OCEANIA;
+            }; break;
+            case "Estados Unidos, Canada": {
+                consularOfficeDistrict = District.USA_CANADA;
+            }; break;
+            case "America Latina, El Caribe, África":
+            default: {
+                consularOfficeDistrict = District.LAT_CAR_AFRICA;
+            }; break;
+        }
+        final ConsularOffice consularOffice = new ConsularOffice(consularOfficeName, consularOfficeAddress, consularOfficeDistrict);
+        final Country country = new Country(name, population, consularOffice);
+        insertCountryAsync(country);
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void clearForm() {
+        txtName.setText("");
+        txtPopulation.setText("");
+        txtOfficeNamr.setText("");
+        txtAddress.setText("");
+        cmbDistrict.setSelectedIndex(0);
+    }
+
+    private boolean checkForm() {
+        if(
+            txtPopulation.getText().isBlank() ||
+            txtOfficeNamr.getText().isBlank() ||
+            txtAddress.getText().isBlank()
+        ){
+            JOptionPane.showMessageDialog(rootPane, "Por favor llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
@@ -237,8 +323,8 @@ public class FrmCountry extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnMenu;
+    private javax.swing.JComboBox<String> cmbDistrict;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -248,9 +334,9 @@ public class FrmCountry extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtOfficeNamr;
+    private javax.swing.JTextField txtPopulation;
     // End of variables declaration//GEN-END:variables
 }

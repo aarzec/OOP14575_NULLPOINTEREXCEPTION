@@ -13,6 +13,12 @@ public class ConsularOffice {
     private String address;
     private District district;
 
+    public ConsularOffice(String officeName, String address, District district) {
+        this.officeName = officeName;
+        this.address = address;
+        this.district = district;
+    }
+
     public District getDistrict() {
         return district;
     }
@@ -34,11 +40,6 @@ public class ConsularOffice {
     }
 
     public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public ConsularOffice(String officeName, String address) {
-        this.officeName = officeName;
         this.address = address;
     }
 

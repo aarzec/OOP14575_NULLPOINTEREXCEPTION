@@ -16,7 +16,6 @@ import ec.edu.espe.dpexsystem.model.ElectoralPackage;
 import ec.edu.espe.dpexsystem.model.User;
 import ec.edu.espe.dpexsystem.utils.JsonHandler;
 import ec.edu.espe.dpexsystem.utils.LoginMenu;
-import ec.edu.espe.dpexsystem.utils.MainMenu;
 import ec.edu.espe.dpexsystem.utils.MessageBox;
 
 /**
@@ -41,10 +40,6 @@ public class DPEXSystem {
         initFolderStructure();
         loadCountries();
         loadConstituencies();
-       // users = User.loadFromFile();
-       // currentUser = LoginMenu.showLoginPrompt();
-        MainMenu.showMainMenu(//currentUser
-        );
     }
     
 
