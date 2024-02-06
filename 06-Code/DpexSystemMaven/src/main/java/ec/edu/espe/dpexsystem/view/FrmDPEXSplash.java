@@ -82,7 +82,7 @@ private Timer splashTimer;
         jLabel4.setText("All Rigths Reserved");
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("DPEX_logo.pnng");
+        jLabel5.setText("DPEX_logo.png");
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 51, 153));

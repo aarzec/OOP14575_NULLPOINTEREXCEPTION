@@ -111,7 +111,7 @@
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="DPEX_logo.pnng"/>
+        <Property name="text" type="java.lang.String" value="DPEX_logo.png"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
