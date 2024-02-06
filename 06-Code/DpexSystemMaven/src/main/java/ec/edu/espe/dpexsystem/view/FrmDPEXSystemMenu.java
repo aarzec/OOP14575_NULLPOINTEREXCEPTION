@@ -1,4 +1,4 @@
-package ec.edu.espe.dpexsystem.Jfrm;
+package ec.edu.espe.dpexsystem.view;
 
 import javax.swing.JOptionPane;
 
@@ -28,7 +28,9 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuDpex = new javax.swing.JMenu();
         itmLogout = new javax.swing.JMenuItem();
@@ -52,8 +54,41 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("BIENVENIDO");
+        jPanel1.setBackground(new java.awt.Color(208, 217, 227));
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 153));
+        jLabel1.setText("CNE");
+
+        jLabel2.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        jLabel2.setText("DPEX System");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(270, 270, 270)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(178, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(175, 175, 175))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(jLabel2)
+                .addGap(73, 73, 73)
+                .addComponent(jLabel1)
+                .addContainerGap(139, Short.MAX_VALUE))
+        );
+
+        jMenuBar1.setForeground(new java.awt.Color(0, 0, 51));
+        jMenuBar1.setOpaque(true);
 
         mnuDpex.setText("DPEX System");
 
@@ -101,6 +136,11 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         mnuCountry.add(itmRegisterCountry);
 
         itmViewCountries.setText("View Countries");
+        itmViewCountries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmViewCountriesActionPerformed(evt);
+            }
+        });
         mnuCountry.add(itmViewCountries);
 
         jMenuBar1.add(mnuCountry);
@@ -118,17 +158,11 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addContainerGap(273, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(234, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -160,6 +194,12 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
     private void mnuElectoralPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuElectoralPackageActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnuElectoralPackageActionPerformed
+
+    private void itmViewCountriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmViewCountriesActionPerformed
+        FrmViewCountry frmViewCountries = new FrmViewCountry();
+        this.setVisible(false);
+        frmViewCountries.setVisible(true);
+    }//GEN-LAST:event_itmViewCountriesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,12 +245,14 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmViewCountries;
     private javax.swing.JMenuItem itmViewPackage;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuCountry;
     private javax.swing.JMenu mnuDpex;
     private javax.swing.JMenu mnuElectoralPackage;

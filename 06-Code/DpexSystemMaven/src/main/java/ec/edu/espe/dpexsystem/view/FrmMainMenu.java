@@ -1,4 +1,4 @@
-package ec.edu.espe.dpexsystem.Jfrm;
+package ec.edu.espe.dpexsystem.view;
 
 /**
  *
