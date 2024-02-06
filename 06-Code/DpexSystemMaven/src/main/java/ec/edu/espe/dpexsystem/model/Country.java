@@ -2,14 +2,20 @@ package ec.edu.espe.dpexsystem.model;
 
 import java.util.Scanner;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author NullPointerException
  */
 public class Country {
+    private ObjectId id;
     private String name;
     private int ecuadorianPopulation;
     private ConsularOffice consularOffice;
+
+    public Country() {
+    }
 
     public Country(String name, int ecuadorianPopulation, ConsularOffice consularOffice) {
         this.name = name;

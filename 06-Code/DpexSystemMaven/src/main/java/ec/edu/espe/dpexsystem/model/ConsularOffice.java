@@ -1,14 +1,25 @@
 
 package ec.edu.espe.dpexsystem.model;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author NullPointerException
  */
 public class ConsularOffice {
-
+    private ObjectId id;
     private String officeName;
     private String address;
+    private District district;
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
 
     public String getOfficeName() {
         return officeName;
@@ -29,6 +40,9 @@ public class ConsularOffice {
     public ConsularOffice(String officeName, String address) {
         this.officeName = officeName;
         this.address = address;
+    }
+
+    public ConsularOffice() {
     }
 
     public String getOfficeDetails() {

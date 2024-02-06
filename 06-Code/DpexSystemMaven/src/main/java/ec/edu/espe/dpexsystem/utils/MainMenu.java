@@ -54,7 +54,7 @@ public class MainMenu {
                 case 4:
                     ConectionMongoDB conectionMongoDB = new ConectionMongoDB(URI, DB);
                     Country country = registerCountry();
-                    conectionMongoDB.create(country, "Country");
+                    // conectionMongoDB.create(country, "Country");
                     break;
                 case 5:
                     createNewRole();
@@ -117,7 +117,7 @@ public class MainMenu {
                 additionalPackage.setWeight(weight);
                 DPEXSystem.addElectoralPackage(additionalPackage);
                 ConectionMongoDB conectionElectoralPackageDB = new ConectionMongoDB(URI, DB);
-                conectionElectoralPackageDB.create(electoralPackage, "Electoral Package");
+                // conectionElectoralPackageDB.create(electoralPackage, "Electoral Package");
                 System.out.println("Your package have been successfully registered");
             }
             break;

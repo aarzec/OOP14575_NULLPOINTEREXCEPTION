@@ -1,20 +1,32 @@
 package ec.edu.espe.dpexsystem.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+
+import ec.edu.espe.dpexsystem.controller.DBConnectionController;
 /**
  *
  * @author Luis Sagnay
  */
 public class FrmDPEXSplash extends javax.swing.JFrame {
- private Timer splashTimer;
+private Timer splashTimer;
     /**
      * Creates new form FrmDPEXSystemMenu
      */
     public FrmDPEXSplash() {
-       initSplashTimer(); 
-       initComponents();
-       
+        initSplashTimer(); 
+        initComponents();
+
+        final boolean connectionResult = DBConnectionController.createConnection();
+        if (connectionResult) {
+            System.out.println("Connected to MongoDB...");
+        } else {
+            System.out.println("Error connecting to MongoDB...");
+            JOptionPane.showMessageDialog(null, "Error connecting to MongoDB...", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
     }
     private void initSplashTimer() {
         splashTimer = new Timer(2500, new ActionListener() {

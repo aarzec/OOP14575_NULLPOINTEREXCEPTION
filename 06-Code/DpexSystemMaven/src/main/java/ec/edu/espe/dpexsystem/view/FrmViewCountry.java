@@ -1,16 +1,35 @@
 package ec.edu.espe.dpexsystem.view;
 
+import java.awt.Dialog.ModalityType;
+import java.util.ArrayList;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+
+import org.bson.Document;
+
+import ec.edu.espe.dpexsystem.controller.ConectionMongoDB;
+import ec.edu.espe.dpexsystem.controller.DBConnectionController;
+import ec.edu.espe.dpexsystem.controller.DBManager;
+import ec.edu.espe.dpexsystem.model.ConsularOffice;
+import ec.edu.espe.dpexsystem.model.Country;
+import ec.edu.espe.dpexsystem.utils.Settings;
+import com.mongodb.client.MongoCursor;
+
 /**
  *
  * @author Luis Sagnay
  */
 public class FrmViewCountry extends javax.swing.JFrame {
-
+    private javax.swing.JFrame instance = this;
     /**
      * Creates new form FrmViewElectoralPackage
      */
     public FrmViewCountry() {
         initComponents();
+        populateCountriesTableAsync();
     }
 
     /**
@@ -27,7 +46,7 @@ public class FrmViewCountry extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableCountries = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -57,8 +76,8 @@ public class FrmViewCountry extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 204));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableCountries.setBackground(new java.awt.Color(204, 204, 204));
+        tableCountries.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -66,7 +85,7 @@ public class FrmViewCountry extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Poblacion Ecuatoriana", "Oficina Consular", "Direccion", "Circunscripcion"
+                "Nombre", "Población Ecuatoriana", "Oficina Consular", "Dirección", "Circunscripción"
             }
         ) {
             Class[] types = new Class [] {
@@ -77,7 +96,10 @@ public class FrmViewCountry extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableCountries);
+        if (tableCountries.getColumnModel().getColumnCount() > 0) {
+            tableCountries.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -216,6 +238,72 @@ public class FrmViewCountry extends javax.swing.JFrame {
         });
     }
 
+    private void populateCountriesTableAsync() {
+        final JDialog modalDialog = new JDialog(instance, "Cargando...", ModalityType.DOCUMENT_MODAL);
+        modalDialog.setSize(200, 100);
+        modalDialog.setLocationRelativeTo(rootPane);
+        modalDialog.add(new javax.swing.JLabel("Cargando..."));
+        SwingUtilities.invokeLater(() -> {
+            modalDialog.setVisible(true);
+        });
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() {
+                populateCountriesTable();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    modalDialog.dispose();
+                });
+            }
+        };
+
+        worker.execute();
+    }
+
+    public void populateCountriesTable() {
+        ConectionMongoDB conectionMongoDB = DBConnectionController.getConection();
+        MongoCursor<Country> countriesCursor = conectionMongoDB.readAll("Country", Country.class);
+        ((javax.swing.table.DefaultTableModel) tableCountries.getModel()).setRowCount(0);
+        try {
+            while (countriesCursor.hasNext()) {
+                Country country = countriesCursor.next();
+                final ConsularOffice consularOffice = country.getConsularOffice();
+                String districtName = consularOffice.getDistrict() == null ? "Desconocido" : consularOffice.getDistrict().name();
+                switch (districtName) {
+                    case "EUROPA_ASIA_OCEANIA":
+                        districtName = "Europa, Asia y Oceania";
+                        break;
+                    case "USA_CANADA":
+                        districtName = "USA y Canada";
+                        break;
+                    case "LAT_CAR_AFRICA":
+                        districtName = "Latinoamerica, Caribe y Africa";
+                        break;
+                    default:
+                        districtName = "Desconocido";
+                }
+                ((javax.swing.table.DefaultTableModel) tableCountries.getModel()).addRow(new Object[]{
+                    country.getName(),
+                    country.getEcuadorianPopulation(),
+                    consularOffice.getOfficeName(),
+                    consularOffice.getAddress(),
+                    districtName
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los paises", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error al cargar los paises: " + e);
+            e.printStackTrace();
+        }
+        finally {
+            countriesCursor.close();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JDialog jDialog1;
@@ -226,6 +314,6 @@ public class FrmViewCountry extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableCountries;
     // End of variables declaration//GEN-END:variables
 }
