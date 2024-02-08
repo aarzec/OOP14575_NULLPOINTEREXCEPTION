@@ -1,5 +1,6 @@
 package ec.edu.espe.dpexsystem.view;
 
+import static java.lang.System.exit;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,8 +42,9 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         mnuCountry = new javax.swing.JMenu();
         itmRegisterCountry = new javax.swing.JMenuItem();
         itmViewCountries = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        itmSentPackage = new javax.swing.JMenuItem();
+        itmShipping = new javax.swing.JMenu();
+        itmShippingPackage = new javax.swing.JMenuItem();
+        itmRecount = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -92,7 +94,7 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
 
         mnuDpex.setText("DPEX System");
 
-        itmLogout.setText("Logout");
+        itmLogout.setText("Cerrar Sesión");
         itmLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmLogoutActionPerformed(evt);
@@ -100,19 +102,24 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         });
         mnuDpex.add(itmLogout);
 
-        itmExit.setText("Exit");
+        itmExit.setText("Salir");
+        itmExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmExitActionPerformed(evt);
+            }
+        });
         mnuDpex.add(itmExit);
 
         jMenuBar1.add(mnuDpex);
 
-        mnuElectoralPackage.setText("Electoral Package");
+        mnuElectoralPackage.setText("Paquetes Electorales");
         mnuElectoralPackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuElectoralPackageActionPerformed(evt);
             }
         });
 
-        itmRegisterPackage.setText("Register");
+        itmRegisterPackage.setText("Registrar");
         itmRegisterPackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmRegisterPackageActionPerformed(evt);
@@ -120,14 +127,14 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         });
         mnuElectoralPackage.add(itmRegisterPackage);
 
-        itmViewPackage.setText("View Package");
+        itmViewPackage.setText("Ver Paquetes");
         mnuElectoralPackage.add(itmViewPackage);
 
         jMenuBar1.add(mnuElectoralPackage);
 
-        mnuCountry.setText("Country");
+        mnuCountry.setText("País");
 
-        itmRegisterCountry.setText("Register");
+        itmRegisterCountry.setText("Registrar");
         itmRegisterCountry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmRegisterCountryActionPerformed(evt);
@@ -135,7 +142,7 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         });
         mnuCountry.add(itmRegisterCountry);
 
-        itmViewCountries.setText("View Countries");
+        itmViewCountries.setText("Ver Paises");
         itmViewCountries.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmViewCountriesActionPerformed(evt);
@@ -145,12 +152,25 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuCountry);
 
-        jMenu1.setText("Administrator");
+        itmShipping.setText("Administrador");
 
-        itmSentPackage.setText("Sent Package");
-        jMenu1.add(itmSentPackage);
+        itmShippingPackage.setText("Envio de Paquetes");
+        itmShippingPackage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmShippingPackageActionPerformed(evt);
+            }
+        });
+        itmShipping.add(itmShippingPackage);
 
-        jMenuBar1.add(jMenu1);
+        itmRecount.setText("Reconteo de Paquetes");
+        itmRecount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmRecountActionPerformed(evt);
+            }
+        });
+        itmShipping.add(itmRecount);
+
+        jMenuBar1.add(itmShipping);
 
         setJMenuBar(jMenuBar1);
 
@@ -182,7 +202,7 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
 
     private void itmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmLogoutActionPerformed
         int selection;
-        selection = JOptionPane.showConfirmDialog(rootPane, "Are you sure?");
+        selection = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro?");
         if(selection == JOptionPane.YES_OPTION){
             FrmLogin frmLogin = new FrmLogin();
             this.setVisible(false);
@@ -200,6 +220,22 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         this.setVisible(false);
         frmViewCountries.setVisible(true);
     }//GEN-LAST:event_itmViewCountriesActionPerformed
+
+    private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
+        exit(0);
+    }//GEN-LAST:event_itmExitActionPerformed
+
+    private void itmShippingPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmShippingPackageActionPerformed
+        FrmShipping frmShipping = new FrmShipping();
+        this.setVisible(false);
+        frmShipping.setVisible(true);
+    }//GEN-LAST:event_itmShippingPackageActionPerformed
+
+    private void itmRecountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRecountActionPerformed
+        FrmRecount frmRecount = new FrmRecount();
+        this.setVisible(false);
+        frmRecount.setVisible(true);
+    }//GEN-LAST:event_itmRecountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,14 +275,15 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itmExit;
     private javax.swing.JMenuItem itmLogout;
+    private javax.swing.JMenuItem itmRecount;
     private javax.swing.JMenuItem itmRegisterCountry;
     private javax.swing.JMenuItem itmRegisterPackage;
-    private javax.swing.JMenuItem itmSentPackage;
+    private javax.swing.JMenu itmShipping;
+    private javax.swing.JMenuItem itmShippingPackage;
     private javax.swing.JMenuItem itmViewCountries;
     private javax.swing.JMenuItem itmViewPackage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

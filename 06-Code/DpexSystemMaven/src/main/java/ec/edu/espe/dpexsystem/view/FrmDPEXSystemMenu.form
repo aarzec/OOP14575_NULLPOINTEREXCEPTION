@@ -37,7 +37,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itmLogout">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Logout"/>
+                <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmLogoutActionPerformed"/>
@@ -45,14 +45,17 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmExit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Exit"/>
+                <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmExitActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuElectoralPackage">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Electoral Package"/>
+            <Property name="text" type="java.lang.String" value="Paquetes Electorales"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuElectoralPackageActionPerformed"/>
@@ -60,7 +63,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itmRegisterPackage">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Register"/>
+                <Property name="text" type="java.lang.String" value="Registrar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmRegisterPackageActionPerformed"/>
@@ -68,19 +71,19 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmViewPackage">
               <Properties>
-                <Property name="text" type="java.lang.String" value="View Package"/>
+                <Property name="text" type="java.lang.String" value="Ver Paquetes"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuCountry">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Country"/>
+            <Property name="text" type="java.lang.String" value="Pa&#xed;s"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itmRegisterCountry">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Register"/>
+                <Property name="text" type="java.lang.String" value="Registrar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmRegisterCountryActionPerformed"/>
@@ -88,7 +91,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmViewCountries">
               <Properties>
-                <Property name="text" type="java.lang.String" value="View Countries"/>
+                <Property name="text" type="java.lang.String" value="Ver Paises"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmViewCountriesActionPerformed"/>
@@ -96,15 +99,26 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="itmShipping">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Administrator"/>
+            <Property name="text" type="java.lang.String" value="Administrador"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itmSentPackage">
+            <MenuItem class="javax.swing.JMenuItem" name="itmShippingPackage">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Sent Package"/>
+                <Property name="text" type="java.lang.String" value="Envio de Paquetes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmShippingPackageActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itmRecount">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reconteo de Paquetes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmRecountActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
