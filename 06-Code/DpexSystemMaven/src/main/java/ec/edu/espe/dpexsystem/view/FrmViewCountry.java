@@ -11,6 +11,7 @@ import javax.swing.SwingWorker;
 import org.bson.Document;
 
 import ec.edu.espe.dpexsystem.controller.ConectionMongoDB;
+import ec.edu.espe.dpexsystem.controller.CountryController;
 import ec.edu.espe.dpexsystem.controller.DBConnectionController;
 import ec.edu.espe.dpexsystem.controller.DBManager;
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
@@ -29,7 +30,7 @@ public class FrmViewCountry extends javax.swing.JFrame {
      */
     public FrmViewCountry() {
         initComponents();
-        populateCountriesTableAsync();
+        CountryController.populateCountriesTableAsync(instance, rootPane, tableCountries);
     }
 
     /**
@@ -236,72 +237,6 @@ public class FrmViewCountry extends javax.swing.JFrame {
                 new FrmViewCountry().setVisible(true);
             }
         });
-    }
-
-    private void populateCountriesTableAsync() {
-        final JDialog modalDialog = new JDialog(instance, "Cargando...", ModalityType.DOCUMENT_MODAL);
-        modalDialog.setSize(200, 100);
-        modalDialog.setLocationRelativeTo(rootPane);
-        modalDialog.add(new javax.swing.JLabel("Cargando..."));
-        SwingUtilities.invokeLater(() -> {
-            modalDialog.setVisible(true);
-        });
-        SwingWorker<Void, Void> worker = new SwingWorker<>() {
-            @Override
-            protected Void doInBackground() {
-                populateCountriesTable();
-                return null;
-            }
-
-            @Override
-            protected void done() {
-                SwingUtilities.invokeLater(() -> {
-                    modalDialog.dispose();
-                });
-            }
-        };
-
-        worker.execute();
-    }
-
-    public void populateCountriesTable() {
-        ConectionMongoDB conectionMongoDB = DBConnectionController.getConection();
-        MongoCursor<Country> countriesCursor = conectionMongoDB.readAll("Country", Country.class);
-        ((javax.swing.table.DefaultTableModel) tableCountries.getModel()).setRowCount(0);
-        try {
-            while (countriesCursor.hasNext()) {
-                Country country = countriesCursor.next();
-                final ConsularOffice consularOffice = country.getConsularOffice();
-                String districtName = consularOffice.getDistrict() == null ? "Desconocido" : consularOffice.getDistrict().name();
-                switch (districtName) {
-                    case "EUROPA_ASIA_OCEANIA":
-                        districtName = "Europa, Asia y Oceania";
-                        break;
-                    case "USA_CANADA":
-                        districtName = "USA y Canada";
-                        break;
-                    case "LAT_CAR_AFRICA":
-                        districtName = "Latinoamerica, Caribe y Africa";
-                        break;
-                    default:
-                        districtName = "Desconocido";
-                }
-                ((javax.swing.table.DefaultTableModel) tableCountries.getModel()).addRow(new Object[]{
-                    country.getName(),
-                    country.getEcuadorianPopulation(),
-                    consularOffice.getOfficeName(),
-                    consularOffice.getAddress(),
-                    districtName
-                });
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los paises", "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Error al cargar los paises: " + e);
-            e.printStackTrace();
-        }
-        finally {
-            countriesCursor.close();
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
