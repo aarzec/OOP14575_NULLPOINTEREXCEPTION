@@ -4,7 +4,7 @@ package ec.edu.espe.dpexsystem.controller;
  *
  * @author Luis Sagnay
  */
-public abstract class DBManager implements Persistence {
+public abstract class DBManager implements IPersistence {
     public static String URI = "";
     public static String DataBase = "";
     public static String Collection = "";

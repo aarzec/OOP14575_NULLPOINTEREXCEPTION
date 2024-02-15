@@ -1,18 +1,26 @@
 package ec.edu.espe.dpexsystem.view;
 
+import ec.edu.espe.dpexsystem.controller.ConectionMongoDB;
+import ec.edu.espe.dpexsystem.controller.DBConnectionController;
+import ec.edu.espe.dpexsystem.model.ElectoralPackage;
 import ec.edu.espe.dpexsystem.model.Country;
-import ec.edu.espe.dpexsystem.view.DPEXSystem;
+import ec.edu.espe.dpexsystem.utils.Settings;
+import java.awt.Dialog;
 import java.util.ArrayList;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 /**
  *
  * @author Luis Sagnay
  */
 public class FrmElectoralPackage extends javax.swing.JFrame {
-
+    private final FrmElectoralPackage instance = this;
     /**
      * Creates new form FrmDPEXSystem
      */
@@ -35,9 +43,9 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        cbCountries = new javax.swing.JComboBox<>();
         txtWeight = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        cmbCountries = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -55,17 +63,17 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
 
         jLabel5.setText("Peso del paquete:");
 
-        cbCountries.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Spain", "Italy", "Egipto", "United States", "Colombia", "Portugal", "Canada", "Cuba", "Chile", "Russia", " " }));
-        cbCountries.setToolTipText("Selecciona el país");
-        cbCountries.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbCountriesActionPerformed(evt);
-            }
-        });
-
         txtWeight.setFocusCycleRoot(true);
 
         jLabel3.setText("kg");
+
+        cmbCountries.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Spain", "Italy", "Egipto", "United States", "Colombia", "Portugal", "Canada", "Cuba", "Chile", "Russia", " " }));
+        cmbCountries.setToolTipText("Selecciona el país");
+        cmbCountries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCountriesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -77,20 +85,21 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel2))
                 .addGap(31, 31, 31)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtWeight)
-                    .addComponent(cbCountries, 0, 123, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCountries, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(cbCountries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCountries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -106,12 +115,12 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(149, 149, 149)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
         );
@@ -125,7 +134,7 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(95, 95, 95))
         );
@@ -160,11 +169,11 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(40, 40, 40)
                 .addComponent(btnAdd)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 330, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMenu)
                 .addGap(30, 30, 30))
         );
@@ -208,15 +217,95 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
         this.setVisible(false);
         frmDPEXSystemMenu.setVisible(true);
     }//GEN-LAST:event_btnMenuActionPerformed
+ 
+    private void insertPackageAsync(ElectoralPackage electoralPackage) {
+        final JDialog modalDialog = new JDialog(instance, "Por favor espere...", Dialog.ModalityType.DOCUMENT_MODAL);
+        modalDialog.setSize(200, 100);
+        modalDialog.setLocationRelativeTo(rootPane);
+        modalDialog.add(new javax.swing.JLabel("Por favor espere..."));
+        SwingUtilities.invokeLater(() -> {
+            modalDialog.setVisible(true);
+        });
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() {
+                ConectionMongoDB conectionMongoDB = DBConnectionController.getConection();
+                conectionMongoDB.create(Settings.PackagesCollection, electoralPackage);
+                JOptionPane.showMessageDialog(rootPane, "Paquete añadido correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                clearForm();
+                return null;
+            }
 
-    private void cbCountriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCountriesActionPerformed
-  
-    }//GEN-LAST:event_cbCountriesActionPerformed
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    modalDialog.dispose();
+                });
+            }
+        };
+
+        worker.execute();
+    }
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        if (!checkForm()) {
+            return;
+        }
+        
+        Country country = new Country();
+        final String countryName = cmbCountries.getSelectedItem().toString();
+
+        int ecuadorianPopulation = country.getEcuadorianPopulation();
+        ElectoralPackage.PackageType packageType;
+
+        if (ecuadorianPopulation < 100) {
+            packageType = ElectoralPackage.PackageType.CNE;
+        } else if (ecuadorianPopulation >= 100 && ecuadorianPopulation < 900) {
+            packageType = ElectoralPackage.PackageType.MIXTO;
+        } else {
+            packageType = ElectoralPackage.PackageType.GENERO;
+        }
+
+        final int weight = Integer.parseInt(txtWeight.getText());
+
+        ElectoralPackage electoralPackage = new ElectoralPackage();
+        electoralPackage.setCountry(country);
+        electoralPackage.setPackageType(packageType);
+        electoralPackage.setWeight(weight);
+
+        int numberOfPackages = ecuadorianPopulation / 900;
+
+        for (int i = 0; i < numberOfPackages; i++) {
+            ElectoralPackage additionalPackage = new ElectoralPackage();
+            additionalPackage.setCountry(country);
+            additionalPackage.setPackageType(packageType);
+            additionalPackage.setWeight(weight);
+            DPEXSystem.addElectoralPackage(additionalPackage);
+
+            insertPackageAsync(additionalPackage);
+        }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void cmbCountriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCountriesActionPerformed
+
+    }//GEN-LAST:event_cmbCountriesActionPerformed
+
+    private void clearForm() {
+        txtWeight.setText("");
+        cmbCountries.setSelectedIndex(0);
+    }
+
+    private boolean checkForm() {
+        if(
+            txtWeight.getText().isBlank() 
+        ){
+            JOptionPane.showMessageDialog(rootPane, "Por favor llene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -256,7 +345,7 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnMenu;
-    private javax.swing.JComboBox<String> cbCountries;
+    private javax.swing.JComboBox<String> cmbCountries;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
