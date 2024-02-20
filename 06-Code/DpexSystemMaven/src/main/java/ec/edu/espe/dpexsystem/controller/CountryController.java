@@ -11,6 +11,8 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
+import org.bson.Document;
+
 import com.mongodb.client.MongoCursor;
 
 import ec.edu.espe.dpexsystem.model.ConsularOffice;
@@ -22,6 +24,12 @@ public class CountryController {
         ConectionMongoDB conectionMongoDB = DBConnectionController.getConection();
         MongoCursor<Country> countriesCursor = conectionMongoDB.readAll("Country", Country.class);
         return countriesCursor;
+    }
+
+    public static Country getOneCountry(String countryName) {
+        ConectionMongoDB conectionMongoDB = DBConnectionController.getConection();
+        Country country = conectionMongoDB.readOne("Country", new Document("name", countryName), Country.class);
+        return country;
     }
 
     public static void populateCountriesTableAsync(JFrame instance, JRootPane rootPane, JTable tableCountries) {

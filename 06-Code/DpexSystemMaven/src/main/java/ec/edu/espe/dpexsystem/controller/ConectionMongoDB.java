@@ -98,4 +98,12 @@ public class ConectionMongoDB extends DBManager{
         System.out.println("Total documents: " + mongoCollection.countDocuments());
         return cursor;
     }
+
+    @Override
+    public <T> T readOne(String collection, Document query, Class<T> clazz) {
+        System.out.println("Attempting to read a '" + clazz.getSimpleName() + "' object from the '" + collection + "' collection...");
+        MongoCollection<T> mongoCollection = database.getCollection(collection, clazz).withCodecRegistry(pojoCodecRegistry);
+        T object = mongoCollection.find((Document)query).first();
+        return object;
+    }
 }
