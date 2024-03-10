@@ -26,16 +26,25 @@ import org.bson.codecs.pojo.PojoCodecProvider;
  *
  * @author Luis Sagnay
  */
-public class ConectionMongoDB extends DBManager{
+public class ConectionMongoDB extends DBManager {
+    private static ConectionMongoDB instancia; 
     private static MongoClient mongoClient;
     private static MongoDatabase database;
     private static final CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
     private static final CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
-    public ConectionMongoDB(String URI, String DB) {
+    private ConectionMongoDB(String URI, String DB) {
+        super();
         DBManager.setDataBase(DB);
         DBManager.setURI(URI);
         connect(DBManager.getURI());
+    }
+
+    public static synchronized ConectionMongoDB getInstancia(String URI, String DB) {
+        if (instancia == null) {
+            instancia = new ConectionMongoDB(URI, DB);
+        }
+        return instancia;
     }
 
     @Override
@@ -45,14 +54,6 @@ public class ConectionMongoDB extends DBManager{
             database = mongoClient.getDatabase(Settings.DBName).withCodecRegistry(pojoCodecRegistry);
         }
     }
-
-    // @Override
-    // public void create(Object data, String table) {
-    //     MongoDatabase database = mongoClient.getDatabase(DataBase);
-    //     MongoCollection<Document> collection = database.getCollection(table);
-    //     Gson gson = new Gson();
-    //     collection.insertOne(Document.parse(gson.toJson(data)));
-    // }
 
     @Override
     @SuppressWarnings("unchecked")
