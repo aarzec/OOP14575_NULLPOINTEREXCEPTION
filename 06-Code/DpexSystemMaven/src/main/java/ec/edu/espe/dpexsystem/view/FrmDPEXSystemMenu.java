@@ -69,10 +69,10 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Impact", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 153));
         jLabel1.setText("¡Bienvenido!");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel2.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Impact", 0, 22)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("en el exterior");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 550, -1));
@@ -94,18 +94,20 @@ public class FrmDPEXSystemMenu extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 640, 30));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/dpexsystem/others/240_F_77092802_l5epJqExIj3BEkeN9bEreTDepkpIPaR0.jpg"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 470, 230));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/dpexsystem/others/cne.jpg"))); // NOI18N
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 420, 210));
 
         jLabel4.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel4.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Impact", 0, 22)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Sistema del Departamento de Procesos");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 550, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jMenuBar1.setBackground(new java.awt.Color(183, 251, 255));
+        jMenuBar1.setBackground(new java.awt.Color(227, 253, 255));
         jMenuBar1.setForeground(new java.awt.Color(0, 0, 51));
         jMenuBar1.setOpaque(true);
 

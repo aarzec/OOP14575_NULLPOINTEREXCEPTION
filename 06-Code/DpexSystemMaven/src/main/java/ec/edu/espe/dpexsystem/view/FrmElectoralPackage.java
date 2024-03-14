@@ -47,24 +47,22 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cmbCountries = new javax.swing.JComboBox<>();
         txtWeight = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -74,9 +72,10 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
-        jLabel1.setText("Paquetes Electorales");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Impact", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel1.setText("Generar paquete electorales");
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 302));
@@ -86,34 +85,15 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, -1, -1));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jLabel8.setText("Vista previa:");
-        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, -1, -1));
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setText("Se crearán");
-        jPanel7.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, -1, -1));
-
-        jLabel9.setText("00");
-        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 6, -1, -1));
-
-        jLabel10.setText("paquetes electorales");
-        jPanel7.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 6, -1, -1));
-
-        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 36, -1, -1));
-
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 270, -1));
-
+        jLabel5.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(204, 204, 255));
         jLabel5.setText("Peso del paquete:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(204, 204, 255));
         jLabel2.setText("País:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         cmbCountries.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Spain", "Italy", "Egipto", "United States", "Colombia", "Portugal", "Canada", "Cuba", "Chile", "Russia", " " }));
         cmbCountries.setToolTipText("Selecciona el país");
@@ -122,7 +102,7 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
                 cmbCountriesActionPerformed(evt);
             }
         });
-        jPanel1.add(cmbCountries, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
+        jPanel1.add(cmbCountries, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         txtWeight.setBorder(null);
         txtWeight.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
@@ -131,17 +111,39 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
                 txtWeightKeyTyped(evt);
             }
         });
-        jPanel1.add(txtWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 110, -1));
+        jPanel1.add(txtWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 110, -1));
 
         jLabel3.setText("kg");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 37, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 110, 10));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 37, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 110, 10));
 
-        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 510, 210));
+        jLabel8.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(204, 204, 255));
+        jLabel8.setText("Vista previa:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 110, 20));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 603, 321));
+        jLabel10.setText("paquetes electorales");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(193, 234, 241));
+        jLabel4.setText("Se crearán");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, -1, -1));
+
+        jLabel9.setText("00");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, -1, -1));
+
+        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 510, 200));
+
+        jLabel6.setFont(new java.awt.Font("Franklin Gothic Book", 3, 14)); // NOI18N
+        jLabel6.setText("Nota:");
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Franklin Gothic Book", 2, 12)); // NOI18N
+        jLabel7.setText("El paquete será creado con un estado de \"Pendiente\"");
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, -1, 20));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 603, 310));
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnAdd.setText("Añadir");
@@ -150,7 +152,7 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
+        jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, -1));
 
         btnMenu.setText("Regresar al menú");
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -158,19 +160,12 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
                 btnMenuActionPerformed(evt);
             }
         });
-        jPanel2.add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, -1));
+        jPanel2.add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, -1, -1));
 
-        jLabel7.setText("El paquete será creado con un estado de \"Pendiente\"");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jLabel6.setText("Nota:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, -1, -1));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 603, 70));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 603, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -181,11 +176,22 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
         frmDPEXSystemMenu.setVisible(true);
     }//GEN-LAST:event_btnMenuActionPerformed
  
+    private void cmbCountriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCountriesActionPerformed
+
+    }//GEN-LAST:event_cmbCountriesActionPerformed
+
+    private void txtWeightKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtWeightKeyTyped
+        char enter = evt.getKeyChar();
+        if(!(Character.isDigit(enter) || enter == '.')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtWeightKeyTyped
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (!checkForm()) {
             return;
         }
-        
+
         final String countryName = cmbCountries.getSelectedItem().toString();
         final Country country = CountryController.getOneCountry(countryName);
         System.out.println("Found country: " + country.getName());
@@ -219,19 +225,7 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
 
             PackageController.insertPackageAsync(electoralPackage, instance, rootPane);
         }
-
     }//GEN-LAST:event_btnAddActionPerformed
-
-    private void cmbCountriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCountriesActionPerformed
-
-    }//GEN-LAST:event_cmbCountriesActionPerformed
-
-    private void txtWeightKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtWeightKeyTyped
-        char enter = evt.getKeyChar();
-        if(!(Character.isDigit(enter) || enter == '.')){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtWeightKeyTyped
 
     public void clearForm() {
         txtWeight.setText("");
@@ -303,8 +297,6 @@ public class FrmElectoralPackage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JFormattedTextField txtWeight;
     // End of variables declaration//GEN-END:variables
